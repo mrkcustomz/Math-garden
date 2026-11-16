@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Math Garden</title>
+<style>
+  :root {
+    --bg: #fff8ec;
+    --card: #ffffff;
+    --ink: #2b2140;
+    --muted: #6b5f80;
+    --line: #eadfca;
+    --add: #2f9e5b;
+    --sub: #e0613a;
+    --big: #3a6fe0;
+    --count: #b0489f;
+    --twenty: #c28a00;
+    --good: #2f9e5b;
+    --bad: #d6453a;
+    --shadow: 0 4px 0 rgba(43, 33, 64, .15);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1d1828; --card: #2a2338; --ink: #f6f0ff; --muted: #b9add0; --line: #3d3450;
+      --shadow: 0 4px 0 rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: "Trebuchet MS", "Comic Sans MS", system-ui, sans-serif;
+    min-height: 100vh; -webkit-tap-highlight-color: transparent;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 16px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+  h1 { font-size: clamp(28px, 7vw, 40px); margin: 8px 0; }
+  h2 { font-size: clamp(22px, 5vw, 30px); margin: 4px 0 12px; }
+  p { font-size: 20px; line-height: 1.4; }
+  .muted { color: var(--muted); }
+  button {
+    font: inherit; color: inherit; cursor: pointer; border: 3px solid var(--line);
+    background: var(--card); border-radius: 18px; box-shadow: var(--shadow);
+    transition: transform .08s;
+  }
+  button:active { transform: translateY(3px); box-shadow: none; }
+  button:focus-visible { outline: 4px solid var(--big); outline-offset: 2px; }
+  .small { font-size: 18px; padding: 8px 14px; border-radius: 14px; }
+  .hidden { display: none !important; }
+
+  .topics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .topic { padding: 18px; text-align: left; display: grid; gap: 6px; border-color: var(--c); }
+  .topic .t { font-size: 24px; font-weight: bold; color: var(--c); }
+  .topic .s { font-size: 17px; color: var(--muted); }
+  .topic .best { font-size: 16px; }
+
+  .modes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 8px; }
+  .mode { padding: 22px 14px; font-size: 24px; font-weight: bold; }
+  .mode span { display: block; font-size: 16px; font-weight: normal; color: var(--muted); margin-top: 6px; }
+
+  .bar { display: flex; gap: 6px; margin: 8px 0 14px; flex-wrap: wrap; }
+  .dot { width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--line); background: var(--card); }
+  .dot.ok { background: var(--good); border-color: var(--good); }
+  .dot.no { background: var(--bad); border-color: var(--bad); }
+  .dot.now { border-color: var(--ink); }
+
+  .card { background: var(--card); border: 3px solid var(--line); border-radius: 24px; padding: 18px; text-align: center; }
+  .question { font-size: clamp(44px, 13vw, 72px); font-weight: bold; letter-spacing: 2px; margin: 4px 0; }
+  .prompt { font-size: 22px; margin: 0 0 6px; }
+  .pics { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; min-height: 60px; margin: 10px 0; }
+  .group { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; max-width: 260px; padding: 8px; border: 3px dashed var(--line); border-radius: 16px; }
+  .obj { font-size: 34px; line-height: 1; position: relative; }
+  .obj.gone { opacity: .35; }
+  .obj.gone::after { content: "✕"; position: absolute; inset: 0; color: var(--bad); font-size: 34px; text-align: center; }
+  .obj.pop { animation: pop .35s ease; }
+  .opsign { font-size: 40px; font-weight: bold; }
+  @keyframes pop { 0% { transform: scale(.4); } 70% { transform: scale(1.25); } 100% { transform: scale(1); } }
+
+  .tenframe { display: grid; grid-template-columns: repeat(5, 40px); gap: 4px; padding: 6px; border: 3px solid var(--ink); border-radius: 10px; }
+  .tenframe div { width: 40px; height: 40px; border: 2px solid var(--line); border-radius: 6px; display: grid; place-items: center; font-size: 26px; }
+
+  .answers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+  .answers button { font-size: clamp(34px, 10vw, 52px); font-weight: bold; padding: 14px 0; }
+  .answers button.right { background: var(--good); border-color: var(--good); color: #fff; }
+  .answers button.wrong { background: var(--bad); border-color: var(--bad); color: #fff; opacity: .7; }
+  .answers.two { grid-template-columns: 1fr 1fr; }
+
+  .feedback { min-height: 64px; font-size: 22px; margin: 12px 0 0; font-weight: bold; }
+  .feedback.good { color: var(--good); }
+  .feedback.bad { color: var(--bad); }
+  .tools { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+  .next { font-size: 24px; padding: 12px 28px; font-weight: bold; background: var(--big); color: #fff; border-color: var(--big); }
+
+  .stars { font-size: 56px; letter-spacing: 6px; }
+  .review { text-align: left; margin: 12px auto; max-width: 420px; font-size: 20px; }
+  .review li { margin: 6px 0; }
+  .confetti { position: fixed; top: -40px; font-size: 28px; pointer-events: none; animation: fall 1.8s linear forwards; }
+  @keyframes fall { to { transform: translateY(110vh) rotate(540deg); } }
+  @media (prefers-reduced-motion: reduce) { .obj.pop, .confetti { animation: none; } .confetti { display: none; } }
+  @media (max-width: 420px) {
+    .modes { grid-template-columns: 1fr; }
+    .obj { font-size: 28px; }
+    .tenframe { grid-template-columns: repeat(5, 34px); }
+    .tenframe div { width: 34px; height: 34px; font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <!-- HOME -->
+  <section id="home">
+    <h1>🌻 Math Garden</h1>
+    <p class="muted">Pick what you want to practice.</p>
+    <div class="topics" id="topics"></div>
+  </section>
+
+  <!-- MODE PICK -->
+  <section id="modePick" class="hidden">
+    <header>
+      <button class="small" data-go="home">⬅ Back</button>
+    </header>
+    <h2 id="modeTitle"></h2>
+    <div class="modes">
+      <button class="mode" id="learnBtn">📖 Learn<span>Pictures and hints. Try again if you miss.</span></button>
+      <button class="mode" id="quizBtn">⭐ Quiz<span>10 questions. Earn stars!</span></button>
+    </div>
+  </section>
+
+  <!-- PLAY -->
+  <section id="play" class="hidden">
+    <header>
+      <button class="small" id="quitBtn">⬅ Stop</button>
+      <strong id="playLabel"></strong>
+      <button class="small" id="sayBtn" aria-label="Read the question out loud">🔊 Hear it</button>
+    </header>
+    <div class="bar" id="bar"></div>
+    <div class="card">
+      <p class="prompt" id="prompt"></p>
+      <div class="question" id="question"></div>
+      <div class="pics" id="pics"></div>
+      <div class="answers" id="answers"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <div class="tools">
+        <button class="small hidden" id="hintBtn">💡 Show me how</button>
+        <button class="next hidden" id="nextBtn">Next ➜</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="hidden">
+    <div class="card">
+      <h2 id="resTitle"></h2>
+      <div class="stars" id="resStars"></div>
+      <p id="resScore"></p>
+      <div id="resReview"></div>
+      <div class="tools">
+        <button class="next" id="againBtn">Play again</button>
+        <button class="small" data-go="home">🏠 Home</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  // ---------- topics ----------
+  const OBJS = ["🍎", "⭐", "🐞", "🌸", "🐟", "🍓", "🎈", "🐥", "🍪", "🚗"];
+  const rand = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+  const shuffle = arr => { for (let i = arr.length - 1; i > 0; i--) { const j = rand(0, i); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; };
+
+  const TOPICS = {
+    count: {
+      name: "Counting", sub: "How many do you see? (1–10)", color: "var(--count)",
+      make() {
+        const n = rand(1, 10);
+        return { kind: "count", n, answer: n, obj: pick(OBJS),
+          text: "How many?", say: "How many do you see? Count them!" };
+      }
+    },
+    add: {
+      name: "Adding", sub: "Put together, up to 10", color: "var(--add)",
+      make() {
+        const a = rand(0, 9), b = rand(0, 10 - a);
+        return { kind: "add", a, b, answer: a + b, obj: pick(OBJS),
+          text: `${a} + ${b} = ?`, say: `What is ${a} plus ${b}?` };
+      }
+    },
+    sub: {
+      name: "Taking Away", sub: "Take away, up to 10", color: "var(--sub)",
+      make() {
+        const a = rand(1, 10), b = rand(0, a);
+        return { kind: "sub", a, b, answer: a - b, obj: pick(OBJS),
+          text: `${a} − ${b} = ?`, say: `What is ${a} minus ${b}?` };
+      }
+    },
+    twenty: {
+      name: "Adding to 20", sub: "Make ten, then add more", color: "var(--twenty)",
+      make() {
+        const a = rand(5, 10), b = rand(Math.max(1, 11 - a), 20 - a);
+        return { kind: "twenty", a, b, answer: a + b, obj: pick(OBJS),
+          text: `${a} + ${b} = ?`, say: `What is ${a} plus ${b}?` };
+      }
+    },
+    compare: {
+      name: "Bigger or Smaller", sub: "Which number is more?", color: "var(--big)",
+      make() {
+        let a = rand(0, 20), b = rand(0, 20);
+        while (b === a) b = rand(0, 20);
+        const askMore = Math.random() < .5;
+        return { kind: "compare", a, b, askMore, answer: askMore ? Math.max(a, b) : Math.min(a, b),
+          text: askMore ? "Which is MORE?" : "Which is LESS?",
+          say: askMore ? `Which is more, ${a} or ${b}?` : `Which is less, ${a} or ${b}?` };
+      }
+    }
+  };
+
+  // ---------- storage (best scores; optional) ----------
+  const store = {
+    get() { try { return JSON.parse(localStorage.getItem("mathGardenBest") || "{}"); } catch { return {}; } },
+    set(v) { try { localStorage.setItem("mathGardenBest", JSON.stringify(v)); } catch {} }
+  };
+
+  // ---------- helpers ----------
+  const $ = id => document.getElementById(id);
+  const show = id => { for (const s of ["home", "modePick", "play", "results"]) $(s).classList.toggle("hidden", s !== id); window.scrollTo(0, 0); };
+  document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => { if (b.dataset.go === "home") renderHome(); show(b.dataset.go); });
+
+  function speak(text) {
+    try {
+      if (!("speechSynthesis" in window)) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.9; u.pitch = 1.1;
+      speechSynthesis.speak(u);
+    } catch {}
+  }
+
+  function confetti() {
+    for (let i = 0; i < 24; i++) {
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.textContent = pick(["🎉", "⭐", "🌟", "🎈", "✨"]);
+      c.style.left = rand(0, 95) + "vw";
+      c.style.animationDelay = (Math.random() * .6) + "s";
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 2600);
+    }
+  }
+
+  const PRAISE = ["Great job!", "You got it!", "Super!", "Awesome!", "Yes! That's right!", "Way to go!"];
+  const TRY = ["Almost! Try again.", "Not quite. You can do it!", "Oops! Look again."];
+
+  // ---------- home ----------
+  function renderHome() {
+    const best = store.get();
+    $("topics").innerHTML = "";
+    for (const [key, t] of Object.entries(TOPICS)) {
+      const b = document.createElement("button");
+      b.className = "topic";
+      b.style.setProperty("--c", t.color);
+      const stars = best[key] != null ? "⭐".repeat(starsFor(best[key])) + ` best ${best[key]}/10` : "Not tried yet";
+      b.innerHTML = `<span class="t">${t.name}</span><span class="s">${t.sub}</span><span class="best">${stars}</span>`;
+      b.onclick = () => { state.topic = key; $("modeTitle").textContent = t.name; show("modePick"); };
+      $("topics").appendChild(b);
+    }
+  }
+  const starsFor = s => s >= 9 ? 3 : s >= 7 ? 2 : s >= 4 ? 1 : 0;
+
+  // ---------- game state ----------
+  const state = { topic: null, mode: null, i: 0, total: 10, results: [], q: null, tries: 0, done: false, hintShown: false };
+
+  $("learnBtn").onclick = () => start("learn");
+  $("quizBtn").onclick = () => start("quiz");
+  $("againBtn").onclick = () => start(state.mode);
+  $("quitBtn").onclick = () => {
+    if (state.mode === "quiz" && state.results.length > 0 && !confirm("Stop the quiz? Your stars won't be saved.")) return;
+    try { speechSynthesis.cancel(); } catch {}
+    renderHome(); show("home");
+  };
+  $("sayBtn").onclick = () => state.q && speak(state.q.say);
+  $("nextBtn").onclick = next;
+  $("hintBtn").onclick = () => { state.hintShown = true; $("hintBtn").classList.add("hidden"); drawPics(true); speak(explain(state.q)); $("feedback").className = "feedback"; $("feedback").textContent = explain(state.q); };
+
+  function start(mode) {
+    state.mode = mode; state.i = 0; state.results = [];
+    $("playLabel").textContent = `${TOPICS[state.topic].name} · ${mode === "quiz" ? "Quiz" : "Learn"}`;
+    show("play");
+    newQuestion();
+  }
+
+  function newQuestion() {
+    // avoid repeating the exact same question twice in a row
+    let q, guard = 0;
+    do { q = TOPICS[state.topic].make(); } while (state.q && q.text === state.q.text && q.a === state.q.a && guard++ < 10);
+    state.q = q; state.tries = 0; state.done = false; state.hintShown = false;
+    renderBar();
+    $("prompt").textContent = q.kind === "count" ? q.text : q.kind === "compare" ? q.text : "Solve it:";
+    $("question").textContent = q.kind === "count" || q.kind === "compare" ? "" : q.text;
+    $("question").classList.toggle("hidden", q.kind === "count" || q.kind === "compare");
+    $("feedback").textContent = ""; $("feedback").className = "feedback";
+    $("nextBtn").classList.add("hidden");
+    // Learn mode: hint button available. Quiz: none.
+    $("hintBtn").classList.toggle("hidden", state.mode !== "learn" || q.kind === "count");
+    drawPics(false);
+    drawAnswers();
+  }
+
+  function renderBar() {
+    const bar = $("bar"); bar.innerHTML = "";
+    if (state.mode !== "quiz") { bar.classList.add("hidden"); return; }
+    bar.classList.remove("hidden");
+    for (let k = 0; k < state.total; k++) {
+      const d = document.createElement("div");
+      d.className = "dot" + (k < state.results.length ? (state.results[k].ok ? " ok" : " no") : k === state.i ? " now" : "");
+      bar.appendChild(d);
+    }
+  }
+
+  // ---------- pictures ----------
+  function objs(n, emoji, cls = "") {
+    let h = "";
+    for (let k = 0; k < n; k++) h += `<span class="obj ${cls}">${emoji}</span>`;
+    return h;
+  }
+
+  function drawPics(explainMode) {
+    const q = state.q, p = $("pics");
+    const showPics = state.mode === "learn" || q.kind === "count";
+    p.innerHTML = "";
+    if (!showPics && q.kind !== "compare") return;
+    if (q.kind === "count") {
+      p.innerHTML = `<div class="group">${objs(q.n, q.obj, "pop")}</div>`;
+    } else if (q.kind === "add") {
+      p.innerHTML = `<div class="group">${objs(q.a, q.obj)}</div><span class="opsign">+</span><div class="group">${objs(q.b, q.obj)}</div>`;
+      if (explainMode) p.innerHTML += `<span class="opsign">=</span><div class="group">${objs(q.a + q.b, q.obj, "pop")}</div>`;
+    } else if (q.kind === "sub") {
+      // show all a, cross out b when explaining
+      let h = "";
+      for (let k = 0; k < q.a; k++) h += `<span class="obj ${explainMode && k >= q.a - q.b ? "gone pop" : ""}">${q.obj}</span>`;
+      p.innerHTML = `<div class="group">${h}</div>`;
+    } else if (q.kind === "twenty") {
+      if (!explainMode) {
+        p.innerHTML = `<div class="group">${objs(q.a, q.obj)}</div><span class="opsign">+</span><div class="group">${objs(q.b, q.obj)}</div>`;
+      } else {
+        // ten-frame: fill first ten, then the rest
+        const total = q.a + q.b, first = 10, second = total - 10;
+        const frame = (filled, startFromA) => {
+          let h = '<div class="tenframe">';
+          for (let k = 0; k < 10; k++) {
+            const idx = startFromA + k;
+            h += `<div>${k < filled ? (idx < q.a ? "🔵" : "🔴") : ""}</div>`;
+          }
+          return h + "</div>";
+        };
+        p.innerHTML = frame(first, 0) + frame(second, 10);
+      }
+    } else if (q.kind === "compare") {
+      // answers are the numbers themselves; show piles in learn mode
+      if (state.mode === "learn") {
+        p.innerHTML = `<div class="group">${objs(q.a, "🔵")}</div><div class="group">${objs(q.b, "🔴")}</div>`;
+      }
+    }
+  }
+
+  function explain(q) {
+    switch (q.kind) {
+      case "add": return `Count all of them together: ${q.a} and ${q.b} more makes ${q.answer}.`;
+      case "sub": return `Start with ${q.a}. Cross out ${q.b}. ${q.answer} are left.`;
+      case "twenty": {
+        const need = 10 - q.a, rest = q.b - need;
+        return `Make 10 first! ${q.a} + ${need} = 10. Then ${rest} more: 10 + ${rest} = ${q.answer}.`;
+      }
+      case "compare": return `The pile with more dots is the bigger number. ${Math.max(q.a, q.b)} is more than ${Math.min(q.a, q.b)}.`;
+      default: return `Touch each one as you count. There are ${q.answer}.`;
+    }
+  }
+
+  // ---------- answers ----------
+  function choices(q) {
+    if (q.kind === "compare") return [q.a, q.b];
+    const max = q.kind === "twenty" ? 20 : 10;
+    const set = new Set([q.answer]);
+    const near = [q.answer - 1, q.answer + 1, q.answer - 2, q.answer + 2].filter(n => n >= 0 && n <= max);
+    shuffle(near);
+    for (const n of near) { if (set.size >= 3) break; set.add(n); }
+    while (set.size < 3) set.add(rand(0, max));
+    return shuffle([...set]);
+  }
+
+  function drawAnswers() {
+    const box = $("answers"); box.innerHTML = "";
+    const opts = choices(state.q);
+    box.classList.toggle("two", opts.length === 2);
+    for (const n of opts) {
+      const b = document.createElement("button");
+      b.textContent = n;
+      b.onclick = () => answer(n, b);
+      box.appendChild(b);
+    }
+  }
+
+  function answer(n, btn) {
+    if (state.done) return;
+    const q = state.q, ok = n === q.answer, fb = $("feedback");
+    state.tries++;
+    if (ok) {
+      btn.classList.add("right");
+      state.done = true;
+      fb.className = "feedback good";
+      const msg = pick(PRAISE);
+      fb.textContent = `${msg} ${q.kind === "count" || q.kind === "compare" ? "" : q.text.replace("?", q.answer)}`;
+      speak(msg);
+      if (state.mode === "learn" && q.kind !== "count") drawPics(true);
+      finishQuestion(state.tries === 1);
+    } else if (state.mode === "learn") {
+      btn.classList.add("wrong"); btn.disabled = true;
+      fb.className = "feedback bad";
+      fb.textContent = pick(TRY);
+      speak(fb.textContent);
+      if (state.tries >= 2 && !state.hintShown && q.kind !== "count") $("hintBtn").click();
+    } else {
+      // quiz: one try, then show the right answer
+      btn.classList.add("wrong");
+      [...$("answers").children].forEach(b => { if (+b.textContent === q.answer) b.classList.add("right"); });
+      state.done = true;
+      fb.className = "feedback bad";
+      fb.textContent = `The answer is ${q.answer}. ${explain(q)}`;
+      finishQuestion(false, n);
+    }
+  }
+
+  function finishQuestion(ok, given) {
+    state.results.push({ ok, text: state.q.kind === "compare" ? `${state.q.text} ${state.q.a} or ${state.q.b}` : state.q.kind === "count" ? `Count the ${state.q.obj}` : state.q.text, answer: state.q.answer, given });
+    renderBar();
+    $("hintBtn").classList.add("hidden");
+    $("nextBtn").classList.remove("hidden");
+    $("nextBtn").textContent = state.mode === "quiz" && state.results.length >= state.total ? "See my stars ⭐" : "Next ➜";
+    $("nextBtn").focus();
+  }
+
+  function next() {
+    state.i++;
+    if (state.mode === "quiz" && state.results.length >= state.total) return results();
+    newQuestion();
+  }
+
+  // ---------- results ----------
+  function results() {
+    const score = state.results.filter(r => r.ok).length;
+    const stars = starsFor(score);
+    const best = store.get();
+    const isBest = best[state.topic] == null || score > best[state.topic];
+    if (isBest) { best[state.topic] = score; store.set(best); }
+    $("resTitle").textContent = score >= 9 ? "Amazing!" : score >= 7 ? "Great work!" : score >= 4 ? "Good try!" : "Keep practicing!";
+    $("resStars").textContent = "⭐".repeat(stars) + "☆".repeat(3 - stars);
+    $("resScore").textContent = `You got ${score} out of 10.` + (isBest && score > 0 ? " New best! 🏆" : "");
+    const missed = state.results.filter(r => !r.ok);
+    $("resReview").innerHTML = missed.length
+      ? `<p class="muted">Let's look at these again:</p><ul class="review">${missed.map(r => `<li>${r.text.replace(" = ?", "")} → <b>${r.answer}</b></li>`).join("")}</ul>`
+      : "";
+    show("results");
+    if (stars >= 2) confetti();
+    speak(`${$("resTitle").textContent} You got ${score} out of 10.`);
+  }
+
+  renderHome();
+})();
+</script>
+</body>
+</html>
