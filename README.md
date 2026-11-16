@@ -1,4 +1,4 @@
-# Math Garden
+# Math Garage
 
 A second-grade math practice game. One HTML file, no install, no internet needed.
 

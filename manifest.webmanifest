@@ -1,6 +1,6 @@
 {
-  "name": "Math Garden",
-  "short_name": "Math Garden",
+  "name": "Math Garage",
+  "short_name": "Math Garage",
   "description": "Second-grade math practice with levels.",
   "start_url": "./",
   "scope": "./",
