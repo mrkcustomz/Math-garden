@@ -160,6 +160,59 @@
   .feedback.bad { color: var(--bad); }
   .levelmsg { font-size: 22px; font-weight: bold; color: var(--gold); margin: 8px 0 0; }
   .levelmsg:empty { display: none; }
+
+  /* rewards */
+  .rewardbar { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; background: var(--card); border: 3px solid var(--line); border-radius: 20px; padding: 12px 14px; margin: 0 0 16px; }
+  .gardenBtn { font-size: 20px; font-weight: bold; padding: 12px 14px; border-color: var(--good); line-height: 1.3; }
+  .gardenBtn #coinCount { display: block; font-size: 17px; color: var(--good); }
+  .goaltext { font-size: 17px; font-weight: bold; margin-bottom: 6px; }
+  .goalbar { height: 14px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .goalbar i { display: block; height: 100%; width: 0; background: var(--gold); border-radius: 999px; transition: width .3s; }
+  .week { grid-column: 1 / -1; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; justify-content: center; font-size: 14px; color: var(--muted); }
+  .week b { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); font-size: 12px; color: var(--muted); }
+  .week b.done { background: var(--good); border-color: var(--good); color: #fff; }
+  .week b.today { border-color: var(--ink); }
+  .hud { text-align: center; font-size: 17px; font-weight: bold; color: var(--good); margin: -4px 0 10px; }
+  .plus { position: fixed; left: 50%; bottom: 22%; transform: translateX(-50%); font-size: 30px; font-weight: bold; color: var(--good); pointer-events: none; animation: rise 1.1s ease-out forwards; z-index: 20; }
+  @keyframes rise { from { opacity: 1; transform: translate(-50%, 0); } to { opacity: 0; transform: translate(-50%, -90px); } }
+
+  .gardenBtn .mini, #miniCar { display: block; width: 120px; }
+  #miniCar svg { width: 120px; height: auto; display: block; }
+  .stage { position: relative; overflow: hidden; border-radius: 20px; border: 3px solid var(--line); background: linear-gradient(#cfe9ff 0 72%, #8f979f 72%); padding: 6px 0 0; }
+  .stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: 9%; height: 4px; background: repeating-linear-gradient(90deg, #fff 0 26px, transparent 26px 52px); opacity: .8; }
+  .stage svg { width: 100%; height: auto; display: block; position: relative; z-index: 1; }
+  .car.drive .body-move, .car.drive .wheel { animation: bounce .25s ease-in-out infinite alternate; }
+  .car.drive { animation: driveoff 2.2s ease-in-out; }
+  .car.drive .wheel { animation: spin .35s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes bounce { to { transform: translateY(-2px); } }
+  @keyframes driveoff { 0% { transform: translateX(0); } 45% { transform: translateX(130%); } 45.01% { transform: translateX(-130%); } 100% { transform: translateX(0); } }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin: 14px 0 10px; }
+  .tabs button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .shop { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
+  .item { padding: 10px 6px; display: grid; gap: 4px; justify-items: center; font-size: 15px; }
+  .item .c { font-weight: bold; color: var(--good); }
+  .item.locked { opacity: .5; }
+  .item.locked .c { color: var(--muted); }
+  .item.on { border-color: var(--good); }
+  .item.tried { border-color: var(--gold); }
+  .sw { width: 34px; height: 34px; border-radius: 50%; border: 2px solid rgba(0,0,0,.25); }
+  .buybar { position: sticky; bottom: 10px; display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; background: var(--card); border: 3px solid var(--gold); border-radius: 18px; padding: 10px; margin-top: 12px; font-size: 18px; font-weight: bold; z-index: 5; }
+  .buybar .next { font-size: 20px; padding: 8px 18px; }
+  .buybar .next:disabled { background: var(--muted); border-color: var(--muted); }
+  .numrow { display: flex; gap: 10px; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 10px; }
+  .numrow b { font-size: 26px; min-width: 40px; text-align: center; }
+  .buildnext { text-align: center; font-size: 22px; margin: 14px 0 8px; }
+  #buildBox { text-align: center; }
+  #buildBox .next:disabled { background: var(--muted); border-color: var(--muted); }
+  .steps { display: flex; flex-wrap: wrap; gap: 8px 14px; justify-content: center; font-size: 17px; margin-top: 10px; }
+  .steps .done { font-weight: bold; }
+  .gardenhead { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 18px; margin-bottom: 10px; }
+  .shopmsg { min-height: 26px; font-weight: bold; text-align: center; margin: 10px 0; font-size: 18px; }
+  .modal { position: fixed; inset: 0; background: rgba(20, 14, 30, .55); display: grid; place-items: center; padding: 16px; z-index: 30; }
+  .modal-card { background: var(--card); border-radius: 24px; padding: 24px 20px; max-width: 380px; width: 100%; text-align: center; border: 3px solid var(--gold); animation: pop .35s ease; }
+  .modal-card .big { font-size: 72px; line-height: 1.1; }
+  .modal-card p { font-size: 19px; }
   .tools { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
   .next { font-size: 24px; padding: 12px 28px; font-weight: bold; background: var(--accent); color: #fff; border-color: var(--accent); }
 
@@ -186,6 +239,14 @@
   <section id="home">
     <h1>🌻 Math Garden</h1>
     <p class="muted">2nd grade math. Get 5 right in a row to level up!</p>
+    <div class="rewardbar">
+      <button class="gardenBtn" id="garageBtn"><span id="miniCar"></span>🏁 My Car<span id="coinCount"></span></button>
+      <div>
+        <div class="goaltext" id="goalText"></div>
+        <div class="goalbar"><i id="goalFill"></i></div>
+      </div>
+      <div class="week" id="week"></div>
+    </div>
     <div class="topics" id="topics"></div>
     <details class="grownups" id="grownups">
       <summary>For grown-ups: back up progress</summary>
@@ -223,6 +284,7 @@
     </header>
     <div class="bar" id="bar"></div>
     <div class="streak hidden" id="streak"></div>
+    <div class="hud" id="hud"></div>
     <div class="card">
       <div class="tag hidden" id="tag">🔁 Let's try this one again</div>
       <p class="prompt" id="prompt"></p>
@@ -256,7 +318,30 @@
       </div>
     </div>
   </section>
+  <section id="garage" class="hidden">
+    <header><button class="small" data-go="home">⬅ Back</button><strong id="gCoins"></strong></header>
+    <h2>🏁 My Car</h2>
+    <div class="stage" id="stage"></div>
+    <div class="tools"><button class="small" id="driveBtn">🏁 Drive!</button></div>
+    <div class="shopmsg" id="shopMsg" aria-live="polite"></div>
+    <div id="buildBox"></div>
+    <div id="customBox" class="hidden">
+      <div class="tabs" id="tabs"></div>
+      <div class="numrow hidden" id="numRow">Number: <button class="small" id="numDown" aria-label="Lower number">−</button><b id="numVal"></b><button class="small" id="numUp" aria-label="Higher number">+</button></div>
+      <div class="shop" id="shop"></div>
+    </div>
+    <div class="buybar hidden" id="buyBar"><span id="buyText"></span><button class="next" id="buyBtn">Buy it!</button><button class="small" id="buyCancel">Cancel</button></div>
+    <p class="muted" style="font-size:16px;text-align:center" id="gLevels"></p>
+  </section>
 </main>
+<div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal-card">
+    <div class="big" id="mEmoji"></div>
+    <h2 id="mTitle"></h2>
+    <p id="mText"></p>
+    <button class="next" id="mOk">Yay!</button>
+  </div>
+</div>
 
 <script>
 (() => {
@@ -682,13 +767,14 @@
     if (p.level == null) p.level = 1;
     if (p.best === undefined) p.best = null;
     if (!Array.isArray(p.missed)) p.missed = [];
+    if (!Number.isFinite(p.top)) p.top = p.level;   // highest level earned by play (rewardLevelUp raises it)
     return p;
   };
   const saveProg = () => store.set(progress);
 
   // ---------- helpers ----------
   const $ = id => document.getElementById(id);
-  const show = id => { for (const s of ["home", "modePick", "play", "results"]) $(s).classList.toggle("hidden", s !== id); window.scrollTo(0, 0); };
+  const show = id => { for (const s of ["home", "modePick", "play", "results", "garage"]) $(s).classList.toggle("hidden", s !== id); window.scrollTo(0, 0); };
   document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => { if (b.dataset.go === "home") renderHome(); show(b.dataset.go); });
 
   function speak(text) {
@@ -716,8 +802,374 @@
   const starsFor = s => s >= 9 ? 3 : s >= 7 ? 2 : s >= 4 ? 1 : 0;
   const STREAK_TO_LEVEL = 5, MISSES_TO_DROP = 3;
 
+  // ---------- rewards: coins, daily goal, weekly bonus, build-a-car ----------
+  const DAILY_GOAL = 10, WEEK_GOAL = 5;
+  const COINS = { levelUp: 20, perStar: 5, daily: 15, weekly: 50 };
+  const coinsFor = level => Math.ceil(level / 2);          // 1, 1, 2, 2, 3 per first-try correct answer
+  const COIN = "💰";
+
+  // The car starts as a bare frame on blocks. Parts are built in this order.
+  const BUILD = [
+    { id: "wheels", e: "⚫", name: "Wheels", cost: 10 },
+    { id: "engine", e: "⚙️", name: "Engine", cost: 20 },
+    { id: "body", e: "🚗", name: "Body", cost: 25 },
+    { id: "windows", e: "🔷", name: "Windows", cost: 15 },
+    { id: "lights", e: "💡", name: "Lights", cost: 20 }
+  ];
+  // need = total level-ups (across all topics) required to unlock
+  const CATS = {
+    paint: { name: "🎨 Paint", single: true, items: [
+      { id: "primer", name: "Primer", fill: "#a7adb5", cost: 0, need: 0 },
+      { id: "red", name: "Red", fill: "#e23b3b", cost: 10, need: 0 },
+      { id: "blue", name: "Blue", fill: "#2f6fe0", cost: 10, need: 0 },
+      { id: "yellow", name: "Yellow", fill: "#f5c400", cost: 10, need: 0 },
+      { id: "green", name: "Green", fill: "#2fa84f", cost: 10, need: 0 },
+      { id: "orange", name: "Orange", fill: "#f57c1f", cost: 10, need: 0 },
+      { id: "purple", name: "Purple", fill: "#8a4fd6", cost: 15, need: 0 },
+      { id: "pink", name: "Pink", fill: "#f06aa8", cost: 15, need: 0 },
+      { id: "black", name: "Black", fill: "#26262e", cost: 15, need: 0 },
+      { id: "white", name: "White", fill: "#f4f4f4", cost: 15, need: 0 },
+      { id: "teal", name: "Teal", fill: "#12a3a3", cost: 15, need: 1 },
+      { id: "gold", name: "Gold", grad: "gold", cost: 60, need: 5 },
+      { id: "chrome", name: "Chrome", grad: "chrome", cost: 80, need: 9 },
+      { id: "rainbow", name: "Rainbow", grad: "rainbow", cost: 120, need: 14 } ] },
+    wheels: { name: "⚫ Wheels", single: true, items: [
+      { id: "basic", name: "Basic", cost: 0, need: 0 },
+      { id: "sport", name: "Sport", cost: 25, need: 0 },
+      { id: "mesh", name: "Mesh", cost: 30, need: 2 },
+      { id: "offroad", name: "Off-road", cost: 40, need: 3 },
+      { id: "gold", name: "Gold rims", cost: 60, need: 6 },
+      { id: "neon", name: "Neon", cost: 80, need: 10 } ] },
+    body: { name: "🚗 Body", single: true, items: [
+      { id: "hatch", name: "Hatchback", cost: 0, need: 0 },
+      { id: "coupe", name: "Sports coupe", cost: 60, need: 2 },
+      { id: "pickup", name: "Pickup", cost: 70, need: 4 },
+      { id: "race", name: "Race car", cost: 100, need: 8 },
+      { id: "monster", name: "Monster truck", cost: 150, need: 12 } ] },
+    extras: { name: "✨ Extras", single: false, items: [
+      { id: "stripes", name: "Racing stripes", cost: 20, need: 0 },
+      { id: "tint", name: "Tinted windows", cost: 15, need: 0 },
+      { id: "number", name: "Number decal", cost: 15, need: 0 },
+      { id: "spoiler", name: "Spoiler", cost: 30, need: 1 },
+      { id: "rack", name: "Roof rack", cost: 25, need: 1 },
+      { id: "flames", name: "Flames", cost: 35, need: 3 },
+      { id: "glow", name: "Underglow", cost: 45, need: 5 },
+      { id: "fire", name: "Exhaust fire", cost: 50, need: 7 } ] }
+  };
+  const findItem = (cat, id) => CATS[cat] && CATS[cat].items.find(i => i.id === id);
+  const FREE = ["paint:primer", "wheels:basic", "body:hatch"];
+
+  const RKEY = "mathGarageRewards";
+  function normRewards(r) {
+    r = r && typeof r === "object" && !Array.isArray(r) ? r : {};
+    r.coins = Number.isFinite(r.coins) ? Math.max(0, Math.floor(r.coins)) : 0;
+    r.built = Number.isInteger(r.built) ? Math.min(Math.max(r.built, 0), BUILD.length) : 0;
+    r.owned = Array.isArray(r.owned) ? r.owned.filter(k => typeof k === "string" && findItem(...k.split(":"))) : [];
+    const c = r.car && typeof r.car === "object" ? r.car : {};
+    const pickOwned = (cat, v, d) => (typeof v === "string" && ownedIn(r, cat, v) ? v : d);
+    r.car = {
+      paint: pickOwned("paint", c.paint, "primer"),
+      wheels: pickOwned("wheels", c.wheels, "basic"),
+      body: pickOwned("body", c.body, "hatch"),
+      extras: Array.isArray(c.extras) ? c.extras.filter(x => typeof x === "string" && ownedIn(r, "extras", x)) : [],
+      number: Number.isInteger(c.number) && c.number >= 0 && c.number <= 99 ? c.number : 7
+    };
+    r.day = r.day && typeof r.day === "object" ? r.day : {};
+    r.goalDays = Array.isArray(r.goalDays) ? r.goalDays.filter(d => typeof d === "string").slice(-90) : [];
+    r.weekBonus = Array.isArray(r.weekBonus) ? r.weekBonus.filter(d => typeof d === "string").slice(-30) : [];
+    return r;
+  }
+  function ownedIn(r, cat, id) { return FREE.includes(`${cat}:${id}`) || r.owned.includes(`${cat}:${id}`); }
+  const owns = (cat, id) => ownedIn(rewards, cat, id);
+  let rewards = normRewards((() => { try { return JSON.parse(localStorage.getItem(RKEY) || "null"); } catch { return null; } })());
+  const saveRewards = () => { try { localStorage.setItem(RKEY, JSON.stringify(rewards)); } catch {} };
+
+  const dateStr = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  function thisWeek() {
+    const d = new Date(), monday = d.getDate() - (d.getDay() + 6) % 7;
+    return Array.from({ length: 7 }, (_, i) => dateStr(new Date(d.getFullYear(), d.getMonth(), monday + i)));
+  }
+  function today() {
+    const t = dateStr(new Date());
+    if (rewards.day.date !== t) rewards.day = { date: t, correct: 0 };
+    return rewards.day;
+  }
+  const levelUps = () => Object.keys(TOPICS).reduce((s, k) => s + prog(k).top - 1, 0);
+
+  function plusPop(text) {
+    if ($("play").classList.contains("hidden")) return;
+    const el = document.createElement("div");
+    el.className = "plus"; el.textContent = text;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1200);
+  }
+  function earn(n, pop = true) {
+    rewards.coins += n; saveRewards(); updateHud();
+    if (pop) plusPop(`+${n} ${COIN}`);
+  }
+
+  // ---------- drawing the car ----------
+  // Side view, facing right. Ground at y=170. Each body sets its wheel spots and where parts attach.
+  const SHAPES = {
+    hatch: { d: "M50,140 L50,105 Q52,95 65,93 L110,90 L140,60 Q145,55 155,55 L250,55 Q262,55 268,62 L295,90 L340,95 Q352,97 352,110 L352,140 Z",
+      win: "M150,64 L248,64 Q256,64 260,69 L281,90 L127,90 Z", pillar: 204, wx: [112, 290], r: 32, lift: 0,
+      roof: [158, 246, 55], tail: [52, 98], head: [346, 104], door: [205, 116] },
+    coupe: { d: "M40,140 L42,113 Q45,103 60,101 L122,96 L165,70 Q172,64 186,64 L244,64 Q258,64 268,73 L302,96 L356,103 Q366,106 366,119 L363,140 Z",
+      win: "M174,73 L243,73 Q253,73 260,80 L281,96 L138,96 Z", pillar: 215, wx: [106, 296], r: 30, lift: 0,
+      roof: [182, 246, 64], tail: [42, 104], head: [360, 110], door: [210, 120] },
+    pickup: { d: "M45,140 L45,96 L172,96 L172,56 L250,56 Q262,56 268,65 L292,92 L346,97 Q356,99 356,112 L356,140 Z",
+      win: "M182,65 L247,65 Q255,65 259,71 L279,92 L182,92 Z", pillar: 222, wx: [106, 296], r: 34, lift: 0,
+      roof: [182, 246, 56], tail: [46, 100], head: [350, 106], door: [228, 116], bed: true },
+    race: { d: "M30,140 L30,121 L70,113 L150,109 L184,84 Q190,79 200,79 L234,79 Q245,79 251,86 L271,109 L360,115 Q376,119 376,129 L373,140 Z",
+      win: "M193,87 L236,87 Q243,87 247,93 L258,107 L176,107 Z", pillar: 0, wx: [102, 302], r: 30, lift: 0,
+      roof: [196, 236, 79], tail: [32, 116], head: [368, 122], door: [215, 125] },
+    monster: { d: "M45,140 L45,96 L172,96 L172,56 L250,56 Q262,56 268,65 L292,92 L346,97 Q356,99 356,112 L356,140 Z",
+      win: "M182,65 L247,65 Q255,65 259,71 L279,92 L182,92 Z", pillar: 222, wx: [100, 300], r: 54, lift: 44,
+      roof: [182, 246, 56], tail: [46, 100], head: [350, 106], door: [228, 116], bed: true }
+  };
+  let carUid = 0;
+  function wheelSVG(cx, cy, r, style, uid) {
+    const rr = r * 0.58;
+    const rim = { basic: "#9aa0a8", sport: "#dfe3e8", mesh: "#cdd1d6", offroad: "#5b6068", gold: "#e5b53a", neon: "#1b2533" }[style] || "#9aa0a8";
+    let g = `<g class="wheel" style="transform-origin:${cx}px ${cy}px"><circle cx="${cx}" cy="${cy}" r="${r}" fill="#1d1f24"/>`;
+    if (style === "offroad") g += `<circle cx="${cx}" cy="${cy}" r="${r - 3}" fill="none" stroke="#3b3f47" stroke-width="6" stroke-dasharray="7 5"/>`;
+    g += `<circle cx="${cx}" cy="${cy}" r="${rr}" fill="${rim}" stroke="rgba(0,0,0,.35)" stroke-width="2"/>`;
+    if (style === "sport" || style === "gold" || style === "neon") {
+      const sc = style === "neon" ? "#3ff6ff" : style === "gold" ? "#b8860b" : "#8d949c";
+      for (let k = 0; k < 5; k++) g += `<rect x="${cx - 2.5}" y="${cy - rr + 2}" width="5" height="${rr - 2}" rx="2" fill="${sc}" transform="rotate(${k * 72} ${cx} ${cy})"/>`;
+    } else if (style === "mesh") {
+      for (let k = 0; k < 12; k++) g += `<line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy - rr + 2}" stroke="#80868e" stroke-width="1.5" transform="rotate(${k * 30} ${cx} ${cy})"/>`;
+    } else if (style === "offroad") {
+      for (let k = 0; k < 6; k++) g += `<circle cx="${cx}" cy="${cy - rr * 0.6}" r="${rr * 0.16}" fill="#2c3036" transform="rotate(${k * 60} ${cx} ${cy})"/>`;
+    } else {
+      for (let k = 0; k < 5; k++) g += `<circle cx="${cx}" cy="${cy - rr * 0.55}" r="2.5" fill="#5f656d" transform="rotate(${k * 72} ${cx} ${cy})"/>`;
+    }
+    if (style === "neon") g += `<circle cx="${cx}" cy="${cy}" r="${rr}" fill="none" stroke="#3ff6ff" stroke-width="3" filter="url(#glow${uid})"/>`;
+    return g + `<circle cx="${cx}" cy="${cy}" r="${r * 0.13}" fill="#444a52"/></g>`;
+  }
+  function carSVG(car, built, cls = "") {
+    const uid = ++carUid, has = n => built >= n;      // 1 wheels, 2 engine, 3 body, 4 windows, 5 lights
+    const S = SHAPES[has(3) ? car.body : "hatch"], lift = has(3) ? S.lift : 0;
+    const r = has(1) ? S.r : 32, wy = 170 - r, ex = new Set(car.extras);
+    const p = findItem("paint", car.paint) || CATS.paint.items[0];
+    const fill = p.grad ? `url(#${p.grad}${uid})` : p.fill;
+    let s = `<svg class="car ${cls}" viewBox="0 0 400 200" role="img" aria-label="your car"><defs>
+      <linearGradient id="gold${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1a8"/><stop offset=".45" stop-color="#e0a92a"/><stop offset="1" stop-color="#9a6a10"/></linearGradient>
+      <linearGradient id="chrome${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbfbfb"/><stop offset=".5" stop-color="#9aa3ad"/><stop offset=".56" stop-color="#eef1f4"/><stop offset="1" stop-color="#666d76"/></linearGradient>
+      <linearGradient id="rainbow${uid}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e23b3b"/><stop offset=".2" stop-color="#f57c1f"/><stop offset=".4" stop-color="#f5c400"/><stop offset=".6" stop-color="#2fa84f"/><stop offset=".8" stop-color="#2f6fe0"/><stop offset="1" stop-color="#8a4fd6"/></linearGradient>
+      <filter id="glow${uid}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
+      <clipPath id="clip${uid}"><path d="${S.d}"/></clipPath></defs>`;
+    s += `<ellipse cx="200" cy="172" rx="170" ry="7" fill="rgba(0,0,0,.18)"/>`;
+    s += `<g class="body-move">`;
+    if (has(3) && ex.has("glow")) s += `<ellipse cx="200" cy="${wy + 22}" rx="150" ry="9" fill="#3ff6ff" filter="url(#glow${uid})" opacity=".9"/>`;
+    // frame (and blocks until wheels go on)
+    if (!has(1)) for (const x of S.wx) s += `<rect x="${x - 16}" y="${wy + 4}" width="32" height="${170 - wy - 4}" fill="#8a7a64" stroke="#5c4f3d" stroke-width="2"/>`;
+    s += `<rect x="${S.wx[0] - 42}" y="${wy - 6}" width="${S.wx[1] - S.wx[0] + 84}" height="12" rx="4" fill="#4a4f57"/>`;
+    if (lift) for (const x of S.wx) s += `<rect x="${x - 6}" y="${140 - lift}" width="12" height="${wy - 140 + lift}" fill="#6b7078"/><path d="M${x - 14},${150 - lift} l28,${wy - 150 + lift - 4}" stroke="#d4342c" stroke-width="5"/>`;
+    if (has(2)) {
+      s += `<rect x="${S.wx[0] - 58}" y="${wy - 2 - lift * 0}" width="24" height="7" rx="3" fill="#7a7f87"/>`;
+      if (!has(3)) s += `<g><rect x="${S.wx[1] - 70}" y="${wy - 40}" width="70" height="34" rx="6" fill="#9aa3ad" stroke="#5f666f" stroke-width="3"/><rect x="${S.wx[1] - 62}" y="${wy - 50}" width="54" height="10" rx="3" fill="#d4342c"/><circle cx="${S.wx[1] - 35}" cy="${wy - 23}" r="8" fill="#5f666f"/></g>`;
+      if (ex.has("fire")) s += `<path d="M${S.wx[0] - 58},${wy + 1} q-14,-9 -26,-2 q8,1 6,5 q-10,0 -16,6 q14,2 36,-1 z" fill="#ff8a1f"/><path d="M${S.wx[0] - 58},${wy + 2} q-9,-4 -16,0 q9,3 16,2 z" fill="#ffe14a"/>`;
+    }
+    if (has(3)) {
+      s += `<g transform="translate(0,${-lift})"><path d="${S.d}" fill="${fill}" stroke="rgba(0,0,0,.4)" stroke-width="3" stroke-linejoin="round"/>`;
+      if (S.bed) s += `<path d="M48,99 L170,99" stroke="rgba(0,0,0,.35)" stroke-width="3"/>`;
+      s += `<g clip-path="url(#clip${uid})">`;
+      if (ex.has("stripes")) s += `<rect x="0" y="${S.door[1] - 12}" width="400" height="7" fill="#fff" opacity=".92"/><rect x="0" y="${S.door[1] - 2}" width="400" height="7" fill="#fff" opacity=".92"/>`;
+      if (ex.has("flames")) { const fx = S.head[0]; s += `<path d="M${fx + 10},${S.door[1] - 18} C${fx - 40},${S.door[1] - 26} ${fx - 60},${S.door[1] - 6} ${fx - 120},${S.door[1] - 14} C${fx - 85},${S.door[1]} ${fx - 110},${S.door[1] + 8} ${fx - 150},${S.door[1] + 6} C${fx - 90},${S.door[1] + 18} ${fx - 40},${S.door[1] + 14} ${fx + 10},${S.door[1] + 20} Z" fill="#ff8a1f" stroke="#ffe14a" stroke-width="3"/>`; }
+      s += `</g>`;
+      if (ex.has("number")) s += `<circle cx="${S.door[0]}" cy="${S.door[1]}" r="15" fill="#fff" stroke="#222" stroke-width="2.5"/><text x="${S.door[0]}" y="${S.door[1] + 1}" text-anchor="middle" dominant-baseline="central" font-size="17" font-weight="900" font-family="Arial, sans-serif" fill="#222">${car.number}</text>`;
+      if (has(4)) {
+        s += `<path d="${S.win}" fill="${ex.has("tint") ? "#2a323d" : "#bfe6ff"}" stroke="rgba(0,0,0,.45)" stroke-width="2.5" stroke-linejoin="round"/>`;
+        if (S.pillar) s += `<line x1="${S.pillar}" y1="${S.roof[2] + 8}" x2="${S.pillar}" y2="${S.door[1] - 22}" stroke="rgba(0,0,0,.45)" stroke-width="5"/>`;
+        s += `<path d="${S.win}" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-dasharray="14 200" stroke-dashoffset="-6"/>`;
+      }
+      if (has(5)) s += `<ellipse cx="${S.head[0]}" cy="${S.head[1]}" rx="7" ry="6" fill="#fff6b0" stroke="#b39b2a" stroke-width="2"/><rect x="${S.tail[0] - 1}" y="${S.tail[1]}" width="7" height="12" rx="2" fill="#e8322b" stroke="#8c1a16" stroke-width="1.5"/>`;
+      if (ex.has("spoiler")) { const [tx, ty] = S.tail; s += `<rect x="${tx + 12}" y="${ty - 18}" width="5" height="18" fill="#26262e"/><rect x="${tx + 34}" y="${ty - 18}" width="5" height="18" fill="#26262e"/><path d="M${tx - 4},${ty - 22} L${tx + 54},${ty - 22} L${tx + 50},${ty - 15} L${tx},${ty - 15} Z" fill="#26262e"/>`; }
+      if (ex.has("rack")) { const [x1, x2, y] = S.roof; s += `<rect x="${x1 + 6}" y="${y - 10}" width="5" height="10" fill="#333"/><rect x="${x2 - 11}" y="${y - 10}" width="5" height="10" fill="#333"/><rect x="${x1}" y="${y - 14}" width="${x2 - x1}" height="5" rx="2" fill="#333"/>`; }
+      s += `</g>`;
+    }
+    s += `</g>`;
+    if (has(1)) for (const x of S.wx) s += wheelSVG(x, wy, r, car.wheels, uid);
+    return s + `</svg>`;
+  }
+
+  // Pop-up celebrations, one at a time.
+  const modalQueue = [];
+  function celebrate(emoji, title, text) {
+    modalQueue.push({ emoji, title, text });
+    if (modalQueue.length === 1) openModal();
+  }
+  function openModal() {
+    const m = modalQueue[0];
+    $("mEmoji").innerHTML = m.emoji; $("mTitle").textContent = m.title; $("mText").textContent = m.text;
+    $("modal").classList.remove("hidden");
+    $("mOk").focus();
+    confetti();
+    speak(`${m.title} ${m.text}`);
+  }
+  $("mOk").onclick = () => {
+    modalQueue.shift();
+    if (modalQueue.length) openModal();
+    else { $("modal").classList.add("hidden"); const n = $("nextBtn"); if (!n.classList.contains("hidden")) n.focus(); }
+  };
+
+  // Every first-try correct answer: coins + progress toward today's goal.
+  function rewardCorrect(level) {
+    earn(coinsFor(level));
+    const d = today();
+    d.correct++;
+    saveRewards(); updateHud();
+    if (d.correct === DAILY_GOAL) dailyGoal();
+  }
+  function dailyGoal() {
+    const t = today().date;
+    if (!rewards.goalDays.includes(t)) rewards.goalDays.push(t);
+    earn(COINS.daily, false);
+    let text;
+    if (rewards.built < BUILD.length) {
+      // Until the car is finished, the daily gift is the next part.
+      const part = BUILD[rewards.built++];
+      text = `You got ${COINS.daily} coins AND the ${part.name} for your car! ${part.e}`;
+      if (rewards.built === BUILD.length) text += " Your car is finished!";
+    } else {
+      const ups = levelUps();
+      const pool = [];
+      for (const [cat, C] of Object.entries(CATS)) for (const it of C.items) if (!owns(cat, it.id) && it.need <= ups && it.cost <= 40) pool.push([cat, it]);
+      if (pool.length) {
+        const [cat, it] = pool[Math.floor(Math.random() * pool.length)];
+        rewards.owned.push(`${cat}:${it.id}`);
+        equip(cat, it.id);
+        text = `You got ${COINS.daily} coins and ${it.name} for your car — it's on your car now!`;
+      } else { earn(25, false); text = `You got ${COINS.daily + 25} coins!`; }
+    }
+    celebrate("🎁", "Daily goal done!", text);
+    const week = thisWeek(), days = week.filter(d => rewards.goalDays.includes(d)).length;
+    if (days >= WEEK_GOAL && !rewards.weekBonus.includes(week[0])) {
+      rewards.weekBonus.push(week[0]);
+      earn(COINS.weekly, false);
+      celebrate("🏆", "Super week!", `${WEEK_GOAL} goal days this week! Here are ${COINS.weekly} bonus coins.`);
+    }
+    saveRewards(); updateHud();
+  }
+  // Level-up coins only the first time a level is reached, so dropping and re-climbing doesn't farm them.
+  function rewardLevelUp(topic, level) {
+    const p = prog(topic);
+    if (level <= p.top) return "";
+    p.top = level; saveProg();
+    earn(COINS.levelUp, false);
+    return ` +${COINS.levelUp} ${COIN}`;
+  }
+
+  function updateHud() {
+    const d = today(), done = d.correct >= DAILY_GOAL;
+    $("hud").textContent = `${COIN} ${rewards.coins} · ${done ? "🎁 Daily goal done!" : `🎁 Today ${d.correct}/${DAILY_GOAL}`}`;
+    $("coinCount").textContent = `${COIN} ${rewards.coins}`;
+    $("miniCar").innerHTML = carSVG(rewards.car, rewards.built, "mini");
+    const prize = rewards.built < BUILD.length ? `the ${BUILD[rewards.built].name} for your car` : "a surprise for your car";
+    $("goalText").textContent = done ? "🎁 Today's goal: done! Come back tomorrow." : `🎁 Get ${DAILY_GOAL} right today to win ${prize}! ${d.correct}/${DAILY_GOAL}`;
+    $("goalFill").style.width = Math.min(100, d.correct / DAILY_GOAL * 100) + "%";
+    const week = thisWeek(), t = d.date, n = week.filter(x => rewards.goalDays.includes(x)).length;
+    $("week").innerHTML = week.map((x, i) => `<b class="${rewards.goalDays.includes(x) ? "done" : ""} ${x === t ? "today" : ""}">${"MTWTFSS"[i]}</b>`).join("")
+      + `<span>${rewards.weekBonus.includes(week[0]) ? "Week bonus earned! 🏆" : `${n}/${WEEK_GOAL} days → ${COINS.weekly} ${COIN} bonus`}</span>`;
+  }
+
+  // ---------- garage ----------
+  let curTab = "paint", preview = null;   // preview = { cat, id } of an item being tried on
+  $("garageBtn").onclick = () => { preview = null; $("shopMsg").textContent = ""; renderGarage(); show("garage"); };
+  function equip(cat, id) {
+    if (CATS[cat].single) rewards.car[cat] = id;
+    else { const e = rewards.car.extras, i = e.indexOf(id); if (i >= 0) e.splice(i, 1); else e.push(id); }
+    saveRewards();
+  }
+  function shownCar() {
+    if (!preview) return rewards.car;
+    const c = JSON.parse(JSON.stringify(rewards.car));
+    if (CATS[preview.cat].single) c[preview.cat] = preview.id;
+    else if (!c.extras.includes(preview.id)) c.extras.push(preview.id);
+    return c;
+  }
+  function renderGarage() {
+    const ups = levelUps(), built = rewards.built;
+    $("gCoins").textContent = `${COIN} ${rewards.coins}`;
+    $("stage").innerHTML = carSVG(shownCar(), built);
+    $("driveBtn").classList.toggle("hidden", built < 1);
+    $("gLevels").textContent = `⬆️ ${ups} level-up${ups === 1 ? "" : "s"} so far. Level up in any topic to unlock 🔒 parts.`;
+    const building = built < BUILD.length;
+    $("buildBox").classList.toggle("hidden", !building);
+    $("customBox").classList.toggle("hidden", building);
+    $("buyBar").classList.add("hidden");
+    if (building) {
+      const part = BUILD[built], poor = rewards.coins < part.cost;
+      $("buildBox").innerHTML = `<p class="buildnext">Next part: <b>${part.e} ${part.name}</b></p>
+        <button class="next" id="buildBtn" ${poor ? "disabled" : ""}>${poor ? `Need ${part.cost - rewards.coins} more ${COIN}` : `Build it! ${COIN} ${part.cost}`}</button>
+        <p class="muted" style="font-size:16px">Or reach today's goal to get it free! 🎁</p>
+        <div class="steps">${["Frame", ...BUILD.map(b => b.name)].map((n, i) => `<span class="${i <= built ? "done" : ""}">${i <= built ? "✅" : "⬜"} ${n}</span>`).join("")}</div>`;
+      $("buildBtn").onclick = () => {
+        if (rewards.coins < part.cost) return;
+        rewards.coins -= part.cost; rewards.built++; saveRewards(); updateHud();
+        $("shopMsg").textContent = `${part.e} ${part.name} added!`;
+        renderGarage();
+        if (rewards.built === BUILD.length) celebrate("🏁", "Your car is finished!", "Now you can paint it and add cool wheels and parts!");
+      };
+      return;
+    }
+    $("tabs").innerHTML = Object.entries(CATS).map(([k, C]) => `<button class="small ${k === curTab ? "on" : ""}" data-tab="${k}">${C.name}</button>`).join("");
+    $("tabs").querySelectorAll("button").forEach(b => b.onclick = () => { curTab = b.dataset.tab; preview = null; $("shopMsg").textContent = ""; renderGarage(); });
+    const C = CATS[curTab], shop = $("shop"); shop.innerHTML = "";
+    for (const it of C.items) {
+      const own = owns(curTab, it.id), locked = !own && it.need > ups;
+      const on = C.single ? rewards.car[curTab] === it.id : rewards.car.extras.includes(it.id);
+      const tried = preview && preview.cat === curTab && preview.id === it.id;
+      const swatch = curTab === "paint" ? `<span class="sw" style="background:${it.grad ? { gold: "linear-gradient(#fff1a8,#e0a92a,#9a6a10)", chrome: "linear-gradient(#fbfbfb,#9aa3ad 50%,#eef1f4 56%,#666d76)", rainbow: "linear-gradient(90deg,#e23b3b,#f57c1f,#f5c400,#2fa84f,#2f6fe0,#8a4fd6)" }[it.grad] : it.fill}"></span>` : "";
+      const b = document.createElement("button");
+      b.className = "item" + (locked ? " locked" : "") + (on ? " on" : "") + (tried ? " tried" : "");
+      b.innerHTML = `${swatch}<span>${it.name}</span><span class="c">${on ? "✅ On" : own ? (C.single ? "Use" : "Off") : locked ? `🔒 ${it.need} level-ups` : `${COIN} ${it.cost}`}</span>`;
+      b.onclick = () => pickItem(curTab, it);
+      shop.appendChild(b);
+    }
+    $("numRow").classList.toggle("hidden", !(curTab === "extras" && rewards.car.extras.includes("number")));
+    $("numVal").textContent = rewards.car.number;
+    if (preview) {
+      const it = findItem(preview.cat, preview.id), locked = it.need > ups, poor = rewards.coins < it.cost;
+      $("buyBar").classList.remove("hidden");
+      $("buyText").textContent = locked ? `🔒 ${it.name}: level up ${it.need - ups} more time${it.need - ups === 1 ? "" : "s"} to unlock` : `${it.name} — ${COIN} ${it.cost}`;
+      $("buyBtn").classList.toggle("hidden", locked);
+      $("buyBtn").disabled = poor;
+      $("buyBtn").textContent = poor ? `Need ${it.cost - rewards.coins} more ${COIN}` : "Buy it!";
+    }
+  }
+  function pickItem(cat, it) {
+    $("shopMsg").textContent = "";
+    if (owns(cat, it.id)) { preview = null; equip(cat, it.id); }
+    else preview = (preview && preview.cat === cat && preview.id === it.id) ? null : { cat, id: it.id };
+    renderGarage();
+  }
+  $("buyBtn").onclick = () => {
+    if (!preview) return;
+    const it = findItem(preview.cat, preview.id);
+    if (it.need > levelUps() || rewards.coins < it.cost) return;
+    rewards.coins -= it.cost;
+    rewards.owned.push(`${preview.cat}:${it.id}`);
+    const cat = preview.cat; preview = null;
+    equip(cat, it.id);
+    updateHud();
+    $("shopMsg").textContent = `You got ${it.name}! 🎉`;
+    renderGarage();
+  };
+  $("buyCancel").onclick = () => { preview = null; renderGarage(); };
+  $("numDown").onclick = () => { rewards.car.number = (rewards.car.number + 99) % 100; saveRewards(); renderGarage(); };
+  $("numUp").onclick = () => { rewards.car.number = (rewards.car.number + 1) % 100; saveRewards(); renderGarage(); };
+  $("driveBtn").onclick = () => {
+    const svg = $("stage").querySelector(".car");
+    if (!svg || svg.classList.contains("drive")) return;
+    svg.classList.add("drive");
+    setTimeout(() => svg.classList.remove("drive"), 2300);
+  };
+
   // ---------- home ----------
   function renderHome() {
+    updateHud();
     $("topics").innerHTML = "";
     for (const [key, T] of Object.entries(TOPICS)) {
       const p = prog(key), b = document.createElement("button");
@@ -731,16 +1183,16 @@
     }
   }
   $("resetBtn").onclick = () => {
-    if (!confirm("Reset all levels and best scores on this device?")) return;
-    progress = {}; saveProg(); fillBackup();
+    if (!confirm("Reset all levels, best scores, coins and the car on this device?")) return;
+    progress = {}; saveProg(); rewards = normRewards(null); saveRewards(); fillBackup();
     try { localStorage.removeItem("mathGarden2Best"); } catch {}
     renderHome();
   };
 
   // ---------- backup code ----------
-  const encode = o => "MG1-" + btoa(unescape(encodeURIComponent(JSON.stringify(o))));
-  const decode = c => JSON.parse(decodeURIComponent(escape(atob(c.trim().replace(/^MG1-/, "")))));
-  function fillBackup() { $("backupBox").value = encode(progress); $("backupMsg").textContent = ""; }
+  const encode = o => "MG2-" + btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+  const decode = c => JSON.parse(decodeURIComponent(escape(atob(c.trim().replace(/^MG\d-/, "")))));
+  function fillBackup() { $("backupBox").value = encode({ v: 2, p: progress, r: rewards }); $("backupMsg").textContent = ""; }
   $("grownups").addEventListener("toggle", () => { if ($("grownups").open) fillBackup(); });
   $("copyBtn").onclick = async () => {
     fillBackup();
@@ -752,10 +1204,14 @@
     if (!code) return;
     let data;
     try { data = decode(code); } catch { data = null; }
-    const valid = data && typeof data === "object" && !Array.isArray(data) && Object.keys(data).every(k => k in TOPICS);
+    const isObj = o => o && typeof o === "object" && !Array.isArray(o);
+    const prog2 = isObj(data) && data.v === 2 ? data.p : data;   // MG1 codes held only progress
+    const valid = isObj(prog2) && Object.keys(prog2).every(k => k in TOPICS);
     if (!valid) { $("backupMsg").textContent = "That code didn't work. Check that you copied all of it."; return; }
     if (!confirm("Replace the progress on this device with the backup?")) return;
-    progress = data; saveProg(); renderHome(); fillBackup();
+    progress = prog2; saveProg();
+    if (data.v === 2) { rewards = normRewards(data.r); saveRewards(); }
+    renderHome(); fillBackup();
     $("backupMsg").textContent = "Progress restored! ✅";
   };
 
@@ -924,7 +1380,7 @@
     renderDisplay();
   }
   document.addEventListener("keydown", e => {
-    if ($("play").classList.contains("hidden") || !state.q || !state.q.typed) return;
+    if ($("play").classList.contains("hidden") || !$("modal").classList.contains("hidden") || !state.q || !state.q.typed) return;
     if (/^[0-9]$/.test(e.key)) padKey(e.key);
     else if (e.key === "Backspace") padKey("⌫");
     else if (e.key === "Enter" && !state.done) { e.preventDefault(); padKey("✓"); }
@@ -977,13 +1433,14 @@
   function firstTry(ok) {
     // A miss is saved until it's answered right on the first try, in any later session.
     if (ok) clearMiss(state.q); else addMiss(state.q);
+    if (ok) rewardCorrect(state.mode === "quiz" ? state.quizLevel : prog(state.topic).level);
     if (state.mode !== "learn") return;
     const p = prog(state.topic), max = TOPICS[state.topic].levels.length;
     if (ok) {
       state.streak++; state.missStreak = 0;
       if (state.streak >= STREAK_TO_LEVEL && p.level < max) {
         p.level++; state.streak = 0; saveProg();
-        $("levelMsg").textContent = `⬆️ Level up! Now Level ${p.level}: ${levelDesc(TOPICS[state.topic], p.level)}`;
+        $("levelMsg").textContent = `⬆️ Level up! Now Level ${p.level}: ${levelDesc(TOPICS[state.topic], p.level)}${rewardLevelUp(state.topic, p.level)}`;
         confetti();
       }
     } else {
@@ -1020,16 +1477,18 @@
     let lvMsg = "";
     if (score >= 9 && state.quizLevel >= p.level && p.level < T.levels.length) {
       p.level = state.quizLevel + 1;
-      lvMsg = `⬆️ Level up! Now Level ${p.level}: ${levelDesc(T, p.level)}`;
+      lvMsg = `⬆️ Level up! Now Level ${p.level}: ${levelDesc(T, p.level)}${rewardLevelUp(state.topic, p.level)}`;
     } else if (score <= 3 && state.quizLevel <= p.level && p.level > 1) {
       p.level = state.quizLevel - 1;
       lvMsg = `Let's go back to Level ${p.level} and practice. 💪`;
     }
     saveProg();
+    const bonus = stars * COINS.perStar;
+    if (bonus) earn(bonus, false);
     const missed = state.results.filter(r => !r.ok);
     $("resTitle").textContent = score >= 9 ? "Amazing!" : score >= 7 ? "Great work!" : score >= 4 ? "Good try!" : "Keep practicing!";
     $("resStars").textContent = "⭐".repeat(stars) + "☆".repeat(3 - stars);
-    $("resScore").textContent = `You got ${score} out of 10 on Level ${state.quizLevel}.` + (isBest && score > 0 ? " New best! 🏆" : "");
+    $("resScore").textContent = `You got ${score} out of 10 on Level ${state.quizLevel}.` + (isBest && score > 0 ? " New best! 🏆" : "") + (bonus ? ` Quiz bonus: +${bonus} 💰` : "");
     $("resLevel").textContent = lvMsg;
     $("resReview").innerHTML = missed.length
       ? `<p class="muted">Let's look at these again:</p><ul class="review">${missed.map(r => `<li>${r.review}</li>`).join("")}</ul>`
@@ -1040,7 +1499,7 @@
     speak(`${$("resTitle").textContent} You got ${score} out of 10. ${lvMsg}`);
   }
 
-  if (location.hash === "#test") window.__mg = state; // test hook only
+  if (location.hash === "#test") { window.__mg = state; window.__mgr = () => rewards; } // test hook only
   renderHome();
 })();
 </script>

@@ -20,6 +20,17 @@ levels 2 and 3 but make you type the answer on a number pad, so guessing stops w
 - Quiz: 9 or 10 out of 10 levels up; 3 or fewer drops a level.
 - A parent can also pick any level with the − / + buttons before starting.
 
+## Rewards: build your car
+
+- **💰 Coins** for every first-try correct answer (1 at Levels 1–2, 2 at 3–4, 3 at Level 5),
+  5 per quiz star, and 20 the first time each level is reached.
+- **Daily goal:** 10 right answers. Until the car is finished, the prize is the next car part;
+  after that, a surprise item. 5 goal days in one week (Mon–Sun) gives a 50-coin bonus.
+  Missing a day costs nothing.
+- **My Car:** start with a bare frame on blocks, build wheels → engine → body → windows → lights,
+  then customize paint, wheels, body style (up to a monster truck) and extras. Tap any item to
+  try it on before buying. The best items unlock with total level-ups, not just coins.
+
 ## Topics
 
 Fast Facts · Adding Big Numbers · Subtracting Big Numbers · Place Value · Skip Counting ·
