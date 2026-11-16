@@ -28,4 +28,14 @@ Times × (bonus) · Sharing ÷ (bonus) · Bigger or Smaller · Even or Odd · Mo
 Wrong answer choices are built from common mistakes (forgetting to regroup, adding instead of
 multiplying, misreading the minute hand), so a wrong pick shows what to practice.
 
-Levels and best scores are saved in the browser on that device only.
+## Saving progress
+
+Levels, best scores and missed problems are saved in the browser on that device. A missed problem
+stays on the list until it's answered right on the first try, even days later.
+
+- **iPad / iPhone:** Safari deletes saved website data after about 7 days without a visit. Add the
+  game to the Home Screen (Share → Add to Home Screen) and always open it from that icon; home-screen
+  apps aren't wiped that way. The home-screen app keeps its own progress separate from Safari, so add
+  it first, or move progress over with a backup code.
+- **Backup code:** "For grown-ups: back up progress" at the bottom of the home screen. Copy the code
+  somewhere safe; "Restore from a code" brings everything back on any device.
