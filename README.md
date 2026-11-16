@@ -9,6 +9,15 @@ Open `index.html` in any browser.
 - **Learn**: pictures, hints and "Show me how" explanations. A problem missed on the first try
   comes back a few questions later (up to twice) until it's answered right the first time.
 - **Quiz**: 10 questions, one try each, 0 to 3 stars, then a review of the misses.
+- **Race**: your car vs Robo, first to 10 right answers. Robo only drives while a question is
+  waiting, at a speed based on how fast this kid usually answers, so it's beatable at their own
+  pace. Win and Robo gets a bit faster next time; lose and it gets a bit slower. Winning pays 10 coins.
+
+About a third of the questions in Telling Time, Money, Place Value, Sharing and Bigger or Smaller
+are hands-on: drag clock hands, tap coins into a piggy bank, build numbers from blocks, deal
+cookies onto plates, or slide a car along a number line. There is nothing to guess from.
+
+Sound effects are made in the browser (no audio files) and can be muted with the 🔊 button.
   "Practice misses" starts a Learn session with exactly those problems.
 
 ## Levels

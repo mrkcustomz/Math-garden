@@ -161,6 +161,63 @@
   .levelmsg { font-size: 22px; font-weight: bold; color: var(--gold); margin: 8px 0 0; }
   .levelmsg:empty { display: none; }
 
+  /* hands-on widgets */
+  .widget { margin: 10px auto 0; max-width: 540px; border-radius: 18px; padding: 8px; border: 3px solid transparent; }
+  .widget.right { border-color: var(--good); }
+  .widget.shake { animation: shake .35s; border-color: var(--bad); }
+  .checkbtn { margin-top: 12px; font-size: 24px; padding: 10px 30px; background: var(--good); border-color: var(--good); }
+  .widget.right .checkbtn, .widget.done .checkbtn { display: none; }
+  .whint { font-size: 15px; margin: 6px 0 0; }
+  .wclock svg { width: min(260px, 72vw); height: auto; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+  .wclock .face { fill: var(--card); stroke: var(--ink); stroke-width: 6; }
+  .wclock text { fill: var(--ink); font-size: 18px; font-weight: bold; text-anchor: middle; dominant-baseline: central; font-family: inherit; pointer-events: none; }
+  .wclock .tick { stroke: var(--muted); stroke-width: 2; }
+  .wclock .hour { stroke: var(--bad); stroke-width: 9; stroke-linecap: round; }
+  .wclock .min { stroke: var(--accent); stroke-width: 6; stroke-linecap: round; }
+  .wclock .hknob { fill: var(--bad); stroke: #fff; stroke-width: 3; }
+  .wclock .mknob { fill: var(--accent); stroke: #fff; stroke-width: 3; }
+  .handbtns { display: flex; gap: 8px 18px; justify-content: center; flex-wrap: wrap; font-size: 16px; align-items: center; }
+  .handbtns span { display: inline-flex; gap: 6px; align-items: center; }
+  .handbtns .small { padding: 6px 12px; }
+  .hcol { color: var(--bad); } .mcol { color: var(--accent); }
+  .piggy, .buildarea { min-height: 86px; border: 3px dashed var(--line); border-radius: 18px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: flex-end; align-content: center; padding: 10px; }
+  .piggy { align-items: center; }
+  .piggy .empty, .buildarea .empty { color: var(--muted); font-size: 16px; align-self: center; }
+  .coinbtn { background: none; border: none; box-shadow: none; padding: 0; }
+  .tray { display: flex; gap: 10px; justify-content: center; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .tray button { padding: 6px 10px; display: grid; justify-items: center; gap: 2px; font-size: 14px; }
+  .buildarea .blk { padding: 0; border-radius: 0; box-shadow: none; cursor: pointer; }
+  .addbtns { display: flex; gap: 10px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+  .addbtns button { font-size: 20px; font-weight: bold; }
+  .pile { font-size: 24px; line-height: 1.3; min-height: 40px; word-break: break-all; }
+  .plates { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+  button.plate { box-shadow: none; padding: 8px; color: inherit; }
+  .nline { position: relative; padding: 38px 18px 36px; }
+  .nline input { width: 100%; -webkit-appearance: none; appearance: none; height: 10px; background: var(--ink); border-radius: 5px; margin: 0; outline-offset: 8px; }
+  .nline input::-webkit-slider-thumb { -webkit-appearance: none; width: 34px; height: 34px; border-radius: 50%; background: var(--bad); border: 4px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.4); cursor: grab; }
+  .nline input::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; background: var(--bad); border: 4px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.4); cursor: grab; }
+  .nline .ticks { position: absolute; left: 35px; right: 35px; top: 56px; height: 24px; }
+  .nline .ticks span { position: absolute; transform: translateX(-50%); font-size: 13px; font-weight: bold; padding-top: 8px; }
+  .nline .ticks span::before { content: ""; position: absolute; left: 50%; top: -4px; width: 2px; height: 10px; background: var(--ink); }
+  .nline .nlcar, .nline .flag { position: absolute; top: 2px; margin-left: 17px; transform: translateX(-50%); font-size: 30px; pointer-events: none; }
+  .nline .nlcar { transform: translateX(-50%) scaleX(-1); }
+  .nline .flag { top: auto; bottom: 0; }
+  /* race */
+  .modes { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .track { --carw: 24%; position: relative; background: #8f979f; border-radius: 16px; padding: 4px 30px 4px 4px; margin-bottom: 10px; border: 3px solid var(--line); }
+  .track::after { content: ""; position: absolute; right: 6px; top: 0; bottom: 0; width: 18px; background: repeating-conic-gradient(#222 0 25%, #fff 0 50%) 0 0 / 9px 9px; }
+  .lane { position: relative; height: 54px; border-bottom: 3px dashed rgba(255,255,255,.6); }
+  .lane:last-of-type { border-bottom: none; }
+  .racer { position: absolute; bottom: -4px; width: var(--carw); left: 0; transition: left .45s ease-out; }
+  #botCar { transition: none; }
+  .racer svg { width: 100%; height: auto; display: block; }
+  .racer.go .wheel { animation: spin .35s linear infinite; }
+  .who { position: absolute; left: 4px; top: 2px; font-size: 13px; font-weight: bold; color: #fff; z-index: 1; text-shadow: 0 1px 2px #000; }
+  .racescore { position: absolute; right: 36px; top: 4px; font-weight: bold; color: #fff; text-shadow: 0 1px 2px #000; font-size: 15px; z-index: 1; }
+  .car.honk { animation: honk .35s ease; }
+  @keyframes honk { 30% { transform: scale(1.06) rotate(-1deg); } 60% { transform: scale(.98); } }
+  .titlebar { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+
   /* rewards */
   .rewardbar { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; background: var(--card); border: 3px solid var(--line); border-radius: 20px; padding: 12px 14px; margin: 0 0 16px; }
   .gardenBtn { font-size: 20px; font-weight: bold; padding: 12px 14px; border-color: var(--good); line-height: 1.3; }
@@ -237,7 +294,7 @@
 <body>
 <main>
   <section id="home">
-    <h1>🏎️ Math Garage</h1>
+    <div class="titlebar"><h1>🏎️ Math Garage</h1><button class="small" id="muteBtn" aria-label="Sound on or off"></button></div>
     <p class="muted">2nd grade math. Get 5 right in a row to level up!</p>
     <div class="rewardbar">
       <button class="gardenBtn" id="garageBtn"><span id="miniCar"></span>🏁 My Car<span id="coinCount"></span></button>
@@ -271,8 +328,9 @@
     </div>
     <p class="leveldesc muted" id="lvDesc"></p>
     <div class="modes">
-      <button class="mode" id="learnBtn">📖 Learn<span>Hints, pictures, and missed problems come back.</span></button>
+      <button class="mode" id="learnBtn">📖 Learn<span>Hints, hands-on puzzles, and missed problems come back.</span></button>
       <button class="mode" id="quizBtn">⭐ Quiz<span>10 questions. Score 9+ to level up!</span></button>
+      <button class="mode" id="raceBtn">🏁 Race<span>Beat Robo to 10 right answers!</span></button>
     </div>
   </section>
 
@@ -285,12 +343,18 @@
     <div class="bar" id="bar"></div>
     <div class="streak hidden" id="streak"></div>
     <div class="hud" id="hud"></div>
+    <div class="track hidden" id="track">
+      <span class="racescore" id="raceScore"></span>
+      <div class="lane"><span class="who">You</span><div class="racer" id="meCar"></div></div>
+      <div class="lane"><span class="who">Robo</span><div class="racer" id="botCar"></div></div>
+    </div>
     <div class="card">
       <div class="tag hidden" id="tag">🔁 Let's try this one again</div>
       <p class="prompt" id="prompt"></p>
       <div class="question" id="question"></div>
       <div class="pics" id="pics"></div>
       <div class="answers" id="answers"></div>
+      <div class="widget hidden" id="widget"></div>
       <div class="pad hidden" id="pad">
         <div class="display" id="display" aria-live="polite"></div>
         <div class="keys" id="keys"></div>
@@ -747,6 +811,63 @@
     const typed = T.typed || [2, 3];
     T.levels = [1, 2, 3].map(t => ({ t, typed: false })).concat(typed.map(t => ({ t, typed: true })));
   }
+
+  // ---------- hands-on questions ----------
+  // In these topics some questions are "build the answer" (drag, tap, slide) instead of pick or type.
+  // Whether a question is hands-on comes from its seed, so a saved miss rebuilds the same way.
+  const WIDGET_RATE = 0.35;
+  const WIDGETS = {
+    time(t) {
+      if (t === 3) return null;
+      const h = rand(1, 12), m = t === 1 ? pick([0, 30]) : rand(1, 11) * 5, ans = fmtTime(h, m), five = m / 5 || 12;
+      return { prompt: "Move the clock hands to show", big: ans, say: `Move the clock hands to show ${h} ${m === 0 ? "o'clock" : m}.`, answer: ans,
+        widget: { type: "clock", h, m },
+        explain: m === 0 ? `The long hand goes straight up at 12. The short hand points at the ${h}.`
+          : `The long hand goes on the ${five}: count by 5s ${five} time${five === 1 ? "" : "s"} = ${m} minutes. The short hand goes ${m >= 30 ? `past the ${h}, on its way to the ${h % 12 + 1}` : `just past the ${h}`}.`,
+        review: `Set the clock to ${ans}` };
+    },
+    money(t) {
+      if (t === 3) return null;
+      const target = t === 1 ? rand(6, 49) : rand(26, 99), kinds = t === 1 ? [10, 5, 1] : [25, 10, 5, 1];
+      const way = []; let left = target;
+      for (const c of kinds) while (left >= c) { way.push(c); left -= c; }
+      return { prompt: "Tap coins to make", big: fmtMoney(target), say: `Tap coins to make ${target} cents.`, answer: fmtMoney(target),
+        widget: { type: "coins", target, kinds, way },
+        explain: `One way: ${way.join(" + ")} = ${target}¢. Start with the biggest coins, then count on.`,
+        review: `Make ${target}¢ → ${way.map(c => coinName[c]).join(", ")}` };
+    },
+    place(t) {
+      let n, prompt, say, big;
+      if (t === 3) {
+        const base = rand(110, 889), op = pick([10, -10, 100, -100]), word = `${Math.abs(op)} ${op > 0 ? "more" : "less"}`;
+        n = base + op; big = String(base);
+        prompt = `Build the number that is <b>${word}</b> than`; say = `Build the number that is ${word} than ${base}.`;
+      } else {
+        n = t === 1 ? rand(11, 99) : rand(101, 999); big = String(n);
+        prompt = "Build this number with blocks:"; say = `Build ${n} with blocks.`;
+      }
+      return { prompt, big, say, answer: String(n), widget: { type: "blocks", target: n, hundreds: t > 1 },
+        explain: `${n} is ${hund(n) ? `${hund(n)} hundreds, ` : ""}${tens(n)} tens and ${ones(n)} ones.`, review: `Build ${n}` };
+    },
+    div(t) {
+      const a = t === 1 ? 2 : rand(2, t === 3 ? 5 : 4), b = t === 3 ? rand(3, 8) : rand(2, 5), total = a * b, obj = pick(["🍪", "🍓", "🍬", "🧁"]);
+      return { prompt: `Tap the plates to share ${total} ${obj} equally.`, big: `${total} ÷ ${a} = ?`,
+        say: `Share ${total} treats equally onto ${a} plates. Tap a plate to give it one.`, answer: String(b),
+        widget: { type: "share", plates: a, total, obj },
+        explain: `Go around the plates giving one to each, again and again, until they're all gone. Each plate gets ${b}, so ${total} ÷ ${a} = ${b}.`,
+        review: `${total} ÷ ${a} = ${b}` };
+    },
+    compare(t) {
+      if (t === 3) return null;
+      const max = t === 1 ? 100 : 1000, step = max / 10, n = t === 1 ? rand(3, 97) : rand(30, 970), tol = max === 100 ? 3 : 30;
+      const lo = Math.floor(n / step) * step, hi = lo + step;
+      return { prompt: "Slide the car to", big: String(n), say: `Slide the car to ${n} on the number line.`, answer: String(n),
+        widget: { type: "line", target: n, max, tol },
+        explain: n % step === 0 ? `${n} is right on the ${n} mark.` : `${n} is between ${lo} and ${hi}${n - lo < step / 2 ? `, closer to ${lo}` : n - lo > step / 2 ? `, closer to ${hi}` : ", right in the middle"}.`,
+        review: `${n} on a number line from 0 to ${max}` };
+    }
+  };
+
   const levelDesc = (T, L) => { const lv = T.levels[L - 1]; return T.tiers[lv.t - 1] + (lv.typed ? " · ⌨️ type the answer" : ""); };
 
   // ---------- saved progress (this device only) ----------
@@ -786,6 +907,48 @@
       speechSynthesis.speak(u);
     } catch {}
   }
+
+  // ---------- sounds (made in the browser, no files) ----------
+  const Sound = (() => {
+    let ctx = null;
+    let muted = (() => { try { return localStorage.getItem("mathGardenMuted") === "1"; } catch { return false; } })();
+    const ac = () => {
+      try {
+        if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; ctx = new C(); }
+        if (ctx.state === "suspended") ctx.resume();
+        return ctx;
+      } catch { return null; }
+    };
+    function tone(f, at, dur, type = "triangle", vol = 0.18, to) {
+      if (muted) return; const c = ac(); if (!c) return;
+      const t = c.currentTime + at, o = c.createOscillator(), g = c.createGain();
+      o.type = type; o.frequency.setValueAtTime(f, t);
+      if (to) o.frequency.exponentialRampToValueAtTime(to, t + dur);
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur + 0.05);
+    }
+    function engine(len = 0.9) {
+      if (muted) return; const c = ac(); if (!c) return;
+      const t = c.currentTime, o = c.createOscillator(), f = c.createBiquadFilter(), g = c.createGain();
+      o.type = "sawtooth"; o.frequency.setValueAtTime(55, t);
+      o.frequency.exponentialRampToValueAtTime(150, t + len * 0.6); o.frequency.exponentialRampToValueAtTime(90, t + len);
+      f.type = "lowpass"; f.frequency.value = 700;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.16, t + 0.05); g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+      o.connect(f); f.connect(g); g.connect(c.destination); o.start(t); o.stop(t + len + 0.05);
+    }
+    return {
+      right() { tone(660, 0, 0.12); tone(990, 0.09, 0.2); },
+      wrong() { tone(260, 0, 0.22, "sine", 0.14, 170); },
+      tick() { tone(1400, 0, 0.05, "square", 0.035); },
+      coin() { tone(1320, 0, 0.08, "square", 0.06); tone(1760, 0.07, 0.16, "square", 0.06); },
+      fanfare() { [523, 659, 784, 1047].forEach((f, i) => tone(f, i * 0.11, 0.22)); },
+      horn() { for (const at of [0, 0.22]) { tone(392, at, 0.17, "square", 0.07); tone(494, at, 0.17, "square", 0.07); } },
+      engine,
+      get muted() { return muted; },
+      toggle() { muted = !muted; try { localStorage.setItem("mathGardenMuted", muted ? "1" : "0"); } catch {} return muted; }
+    };
+  })();
+
   function confetti() {
     for (let i = 0; i < 24; i++) {
       const c = document.createElement("div");
@@ -804,7 +967,7 @@
 
   // ---------- rewards: coins, daily goal, weekly bonus, build-a-car ----------
   const DAILY_GOAL = 10, WEEK_GOAL = 5;
-  const COINS = { levelUp: 20, perStar: 5, daily: 15, weekly: 50 };
+  const COINS = { levelUp: 20, perStar: 5, daily: 15, weekly: 50, raceWin: 10 };
   const coinsFor = level => Math.ceil(level / 2);          // 1, 1, 2, 2, 3 per first-try correct answer
   const COIN = "💰";
 
@@ -1005,7 +1168,7 @@
     $("mEmoji").innerHTML = m.emoji; $("mTitle").textContent = m.title; $("mText").textContent = m.text;
     $("modal").classList.remove("hidden");
     $("mOk").focus();
-    confetti();
+    confetti(); Sound.fanfare();
     speak(`${m.title} ${m.text}`);
   }
   $("mOk").onclick = () => {
@@ -1107,7 +1270,7 @@
         <div class="steps">${["Frame", ...BUILD.map(b => b.name)].map((n, i) => `<span class="${i <= built ? "done" : ""}">${i <= built ? "✅" : "⬜"} ${n}</span>`).join("")}</div>`;
       $("buildBtn").onclick = () => {
         if (rewards.coins < part.cost) return;
-        rewards.coins -= part.cost; rewards.built++; saveRewards(); updateHud();
+        rewards.coins -= part.cost; rewards.built++; saveRewards(); updateHud(); Sound.coin();
         $("shopMsg").textContent = `${part.e} ${part.name} added!`;
         renderGarage();
         if (rewards.built === BUILD.length) celebrate("🏁", "Your car is finished!", "Now you can paint it and add cool wheels and parts!");
@@ -1151,7 +1314,7 @@
     if (it.need > levelUps() || rewards.coins < it.cost) return;
     rewards.coins -= it.cost;
     rewards.owned.push(`${preview.cat}:${it.id}`);
-    const cat = preview.cat; preview = null;
+    const cat = preview.cat; preview = null; Sound.coin();
     equip(cat, it.id);
     updateHud();
     $("shopMsg").textContent = `You got ${it.name}! 🎉`;
@@ -1163,9 +1326,17 @@
   $("driveBtn").onclick = () => {
     const svg = $("stage").querySelector(".car");
     if (!svg || svg.classList.contains("drive")) return;
-    svg.classList.add("drive");
+    svg.classList.add("drive"); Sound.engine(1.8);
     setTimeout(() => svg.classList.remove("drive"), 2300);
   };
+  $("stage").onclick = () => {
+    const svg = $("stage").querySelector(".car");
+    if (!svg || svg.classList.contains("drive") || rewards.built < 1) return;
+    Sound.horn(); svg.classList.remove("honk"); void svg.getBoundingClientRect(); svg.classList.add("honk");
+  };
+  const drawMute = () => { $("muteBtn").textContent = Sound.muted ? "🔇" : "🔊"; $("muteBtn").setAttribute("aria-label", Sound.muted ? "Sound is off. Turn sound on" : "Sound is on. Turn sound off"); };
+  $("muteBtn").onclick = () => { Sound.toggle(); drawMute(); if (!Sound.muted) Sound.right(); };
+  drawMute();
 
   // ---------- home ----------
   function renderHome() {
@@ -1227,6 +1398,257 @@
   $("lvDown").onclick = () => { const p = prog(state.topic); if (p.level > 1) { p.level--; saveProg(); } openModePick(); };
   $("lvUp").onclick = () => { const p = prog(state.topic); if (p.level < TOPICS[state.topic].levels.length) { p.level++; saveProg(); } openModePick(); };
 
+
+  // ---------- hands-on widgets ----------
+  // Each widget returns { check() -> bool, why() -> hint after a wrong try, reveal(), lock() }.
+  let widgetCtl = null;
+  function mountWidget(q) {
+    const box = $("widget");
+    box.className = "widget"; box.innerHTML = "";
+    const make = { clock: clockWidget, coins: coinsWidget, blocks: blocksWidget, share: shareWidget, line: lineWidget }[q.widget.type];
+    widgetCtl = make(box, q.widget);
+    const check = document.createElement("button");
+    check.className = "next checkbtn"; check.textContent = "Check ✓";
+    check.onclick = () => { if (!state.done) answer(widgetCtl.check(), null); };
+    box.appendChild(check);
+  }
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+
+  function clockWidget(box, w) {
+    let cur = 0, drag = null, locked = false;                 // cur = minutes after 12:00 (0-719)
+    const wrap = el("div", "wclock");
+    let face = `<svg viewBox="0 0 200 200" role="img" aria-label="clock you can set"><circle class="face" cx="100" cy="100" r="94"/>`;
+    for (let i = 0; i < 60; i++) { const a = i * 6 * Math.PI / 180, r1 = i % 5 ? 86 : 82; face += `<line class="tick" x1="${100 + 90 * Math.sin(a)}" y1="${100 - 90 * Math.cos(a)}" x2="${100 + r1 * Math.sin(a)}" y2="${100 - r1 * Math.cos(a)}"/>`; }
+    for (let i = 1; i <= 12; i++) { const a = i * 30 * Math.PI / 180; face += `<text x="${100 + 68 * Math.sin(a)}" y="${100 - 68 * Math.cos(a)}">${i}</text>`; }
+    face += `<line class="hour" x1="100" y1="100"/><circle class="hknob" r="9"/><line class="min" x1="100" y1="100"/><circle class="mknob" r="8"/><circle cx="100" cy="100" r="6" fill="currentColor"/></svg>`;
+    wrap.innerHTML = face;
+    const svg = wrap.querySelector("svg"), hour = svg.querySelector(".hour"), min = svg.querySelector(".min"), hk = svg.querySelector(".hknob"), mk = svg.querySelector(".mknob");
+    const rad = d => d * Math.PI / 180;
+    const angles = () => [((cur / 60) % 12) * 30, (cur % 60) * 6];
+    function draw() {
+      const [ha, ma] = angles();
+      const hx = 100 + 45 * Math.sin(rad(ha)), hy = 100 - 45 * Math.cos(rad(ha)), mx = 100 + 74 * Math.sin(rad(ma)), my = 100 - 74 * Math.cos(rad(ma));
+      hour.setAttribute("x2", hx); hour.setAttribute("y2", hy); hk.setAttribute("cx", hx); hk.setAttribute("cy", hy);
+      min.setAttribute("x2", mx); min.setAttribute("y2", my); mk.setAttribute("cx", mx); mk.setAttribute("cy", my);
+    }
+    const pt = e => { const r = svg.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * 200 - 100, (e.clientY - r.top) / r.height * 200 - 100]; };
+    function move(e) {
+      const [x, y] = pt(e);
+      if (Math.hypot(x, y) < 10) return;
+      const a = (Math.atan2(x, -y) * 180 / Math.PI + 360) % 360;
+      if (drag === "m") {                                       // the long hand winds the clock, like a real one
+        const nm = Math.round(a / 30) * 5 % 60;
+        let d = nm - cur % 60; if (d > 30) d -= 60; if (d < -30) d += 60;
+        cur = (cur + d + 720) % 720;
+      } else {
+        const h = Math.round((a - (cur % 60) / 2) / 30);
+        cur = (((h % 12) + 12) % 12) * 60 + cur % 60;
+      }
+      draw();
+    }
+    svg.addEventListener("pointerdown", e => {
+      if (locked) return;
+      const [x, y] = pt(e), [ha, ma] = angles();
+      const dh = Math.hypot(x - 45 * Math.sin(rad(ha)), y + 45 * Math.cos(rad(ha))), dm = Math.hypot(x - 74 * Math.sin(rad(ma)), y + 74 * Math.cos(rad(ma)));
+      drag = dh < dm ? "h" : "m";
+      try { svg.setPointerCapture(e.pointerId); } catch {}
+      move(e); e.preventDefault();
+    });
+    svg.addEventListener("pointermove", e => { if (drag && !locked) move(e); });
+    const stop = () => { drag = null; };
+    svg.addEventListener("pointerup", stop); svg.addEventListener("pointercancel", stop);
+    const btns = el("div", "handbtns", `<span><b class="hcol">Short hand</b> <button class="small" data-d="-60" aria-label="Short hand back">◀</button><button class="small" data-d="60" aria-label="Short hand forward">▶</button></span>
+      <span><b class="mcol">Long hand</b> <button class="small" data-d="-5" aria-label="Long hand back">◀</button><button class="small" data-d="5" aria-label="Long hand forward">▶</button></span>`);
+    btns.querySelectorAll("button").forEach(b => b.onclick = () => { if (!locked) { cur = (cur + Number(b.dataset.d) + 720) % 720; draw(); } });
+    box.append(wrap, btns, el("p", "muted whint", "Drag the hands, or use the arrows."));
+    draw();
+    const read = () => [Math.floor(cur / 60) % 12 || 12, cur % 60];
+    return {
+      check: () => { const [h, m] = read(); return h === w.h && m === w.m; },
+      why: () => { const [h, m] = read(); return m === w.m ? "The long hand is right! Now check the short hand." : h === w.h ? "The short hand is right! Now check the long hand." : "Not quite. The long hand shows minutes, the short hand shows the hour."; },
+      reveal: () => { cur = (w.h % 12) * 60 + w.m; draw(); },
+      lock: () => { locked = true; btns.querySelectorAll("button").forEach(b => b.disabled = true); }
+    };
+  }
+
+  function coinsWidget(box, w) {
+    let bank = [], locked = false;
+    const piggy = el("div", "piggy"), tray = el("div", "tray");
+    const sum = () => bank.reduce((s, c) => s + c, 0);
+    function draw() {
+      piggy.innerHTML = "";
+      if (!bank.length) piggy.append(el("span", "empty", "🐷 Tap coins below to put them here"));
+      bank.slice().sort((a, b) => b - a).forEach(c => {
+        const b = el("button", "coinbtn", coinHTML[c]);
+        b.setAttribute("aria-label", `take out a ${coinName[c]}`);
+        b.onclick = () => { if (!locked) { bank.splice(bank.indexOf(c), 1); Sound.tick(); draw(); } };
+        piggy.append(b);
+      });
+    }
+    for (const c of w.kinds) {
+      const b = el("button", "", `${coinHTML[c]}<span>${coinName[c]}</span>`);
+      b.setAttribute("aria-label", `add a ${coinName[c]}`);
+      b.onclick = () => { if (!locked && bank.length < 20) { bank.push(c); Sound.tick(); draw(); } };
+      tray.append(b);
+    }
+    box.append(piggy, tray);
+    draw();
+    return {
+      check: () => sum() === w.target,
+      why: () => sum() < w.target ? `Not enough yet. You have ${sum()}¢.` : `Too much! You have ${sum()}¢.`,
+      reveal: () => { bank = w.way.slice(); draw(); },
+      lock: () => { locked = true; tray.querySelectorAll("button").forEach(b => b.disabled = true); }
+    };
+  }
+
+  function blocksWidget(box, w) {
+    const n = { h: 0, t: 0, o: 0 }; let locked = false;
+    const area = el("div", "buildarea"), add = el("div", "addbtns");
+    const val = () => n.h * 100 + n.t * 10 + n.o;
+    function draw() {
+      area.innerHTML = "";
+      if (!val()) area.append(el("span", "empty", "Tap the buttons to add blocks. Tap a block to take it away."));
+      for (const [k, cls] of [["h", "b100"], ["t", "b10"], ["o", "b1"]]) for (let i = 0; i < n[k]; i++) {
+        const b = el("button", cls + " blk");
+        b.setAttribute("aria-label", "remove block");
+        b.onclick = () => { if (!locked) { n[k]--; Sound.tick(); draw(); } };
+        area.append(b);
+      }
+    }
+    const kinds = (w.hundreds ? [["h", "+ Hundred", 9]] : []).concat([["t", "+ Ten", 20], ["o", "+ One", 20]]);
+    for (const [k, label, max] of kinds) {
+      const b = el("button", "small", label);
+      b.onclick = () => { if (!locked && n[k] < max) { n[k]++; Sound.tick(); draw(); } };
+      add.append(b);
+    }
+    box.append(area, add);
+    draw();
+    return {
+      check: () => val() === w.target,
+      why: () => `You built ${val()}. ${val() < w.target ? "You need more." : "That's too many."}`,
+      reveal: () => { n.h = hund(w.target); n.t = tens(w.target); n.o = ones(w.target); draw(); },
+      lock: () => { locked = true; add.querySelectorAll("button").forEach(b => b.disabled = true); }
+    };
+  }
+
+  function shareWidget(box, w) {
+    let pile = w.total, plates = Array(w.plates).fill(0), hist = [], locked = false;
+    const pileEl = el("div", "pile"), platesEl = el("div", "plates"), undo = el("button", "small", "↩ Undo");
+    function draw() {
+      pileEl.textContent = pile ? w.obj.repeat(pile) : "All shared!";
+      platesEl.innerHTML = "";
+      plates.forEach((c, i) => {
+        const b = el("button", "plate", w.obj.repeat(c));
+        b.setAttribute("aria-label", `plate ${i + 1}, ${c} on it`);
+        b.onclick = () => { if (!locked && pile > 0) { pile--; plates[i]++; hist.push(i); Sound.tick(); draw(); } };
+        platesEl.append(b);
+      });
+      undo.disabled = locked || !hist.length;
+    }
+    undo.onclick = () => { if (!locked && hist.length) { plates[hist.pop()]--; pile++; draw(); } };
+    box.append(pileEl, platesEl, el("div", "tools", "")); box.lastChild.append(undo);
+    draw();
+    return {
+      check: () => pile === 0 && plates.every(c => c === plates[0]),
+      why: () => pile > 0 ? `Share them all! ${pile} left to give out.` : "Not fair yet. Every plate needs the same number.",
+      reveal: () => { pile = 0; plates = plates.map(() => w.total / w.plates); hist = []; draw(); },
+      lock: () => { locked = true; draw(); }
+    };
+  }
+
+  function lineWidget(box, w) {
+    let locked = false;
+    const wrap = el("div", "nline");
+    const step = w.max / 10;
+    let ticks = "";
+    for (let k = 0; k <= 10; k++) ticks += `<span style="left:${k * 10}%">${k * step}</span>`;
+    wrap.innerHTML = `<div class="nlcar" aria-hidden="true">🚗</div><input type="range" min="0" max="${w.max}" step="1" value="0" aria-label="number line from 0 to ${w.max}"><div class="ticks">${ticks}</div><div class="flag hidden" style="left:${w.target / w.max * 100}%">🏁</div>`;
+    const input = wrap.querySelector("input"), car = wrap.querySelector(".nlcar");
+    const place = () => { car.style.left = `${input.value / w.max * 100}%`; };
+    input.addEventListener("input", place);
+    box.append(wrap, el("p", "muted whint", "Drag the red dot. The car moves with it."));
+    place();
+    const v = () => Number(input.value);
+    return {
+      check: () => Math.abs(v() - w.target) <= w.tol,
+      why: () => v() < w.target ? "Go a little more to the right!" : "Go back a little to the left!",
+      reveal: () => { input.value = w.target; place(); wrap.querySelector(".flag").classList.remove("hidden"); },
+      lock: () => { locked = true; input.disabled = true; }
+    };
+  }
+
+  // ---------- race mode ----------
+  // Your car vs Robo, first to 10 right answers. Robo only drives while a question is waiting for an
+  // answer, and its speed comes from how fast this kid usually answers this topic, so it's beatable
+  // at their own pace. Winning makes the next race a little harder; losing makes it a little easier.
+  const RACE_GOAL = 10;
+  const race = { on: false, me: 0, bot: 0, total: 60, last: 0, raf: 0 };
+  const ROBO = { paint: "black", wheels: "sport", body: "race", extras: ["number", "stripes"], number: 99 };
+  const clampNum = (v, lo, hi, d) => Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : d;
+  function startRace() {
+    const p = prog(state.topic);
+    const per = clampNum(p.avgSec, 3, 40, 10), factor = clampNum(p.raceFactor, 0.5, 2, 1);
+    race.total = Math.min(Math.max(RACE_GOAL * per * 1.35 * factor, 25), 600);
+    race.me = 0; race.bot = 0; race.on = true; race.last = performance.now();
+    const mine = rewards.built >= 3 ? carSVG(rewards.car, rewards.built) : carSVG({ paint: "red", wheels: "basic", body: "hatch", extras: [], number: 1 }, BUILD.length);
+    $("meCar").innerHTML = mine; $("botCar").innerHTML = carSVG(ROBO, BUILD.length);
+    drawRace();
+    cancelAnimationFrame(race.raf); race.raf = requestAnimationFrame(raceTick);
+  }
+  function raceTick(now) {
+    if (!race.on) return;
+    const dt = Math.min((now - race.last) / 1000, 0.1); race.last = now;
+    const moving = !state.done && $("modal").classList.contains("hidden") && !document.hidden && !$("play").classList.contains("hidden");
+    $("botCar").classList.toggle("go", moving);
+    if (moving) {
+      race.bot = Math.min(1, race.bot + dt / race.total);
+      drawRace();
+      if (race.bot >= 1) { endRace(false); return; }
+    }
+    race.raf = requestAnimationFrame(raceTick);
+  }
+  function drawRace() {
+    $("meCar").style.left = `calc(${race.me} * (100% - var(--carw)))`;
+    $("botCar").style.left = `calc(${race.bot} * (100% - var(--carw)))`;
+    $("raceScore").textContent = `${Math.round(race.me * RACE_GOAL)} / ${RACE_GOAL}`;
+  }
+  function raceBoost() {
+    race.me = Math.min(1, race.me + 1 / RACE_GOAL);
+    Sound.engine(0.5);
+    const me = $("meCar"); me.classList.add("go"); setTimeout(() => me.classList.remove("go"), 700);
+    drawRace();
+    if (race.me >= 1 - 1e-9) endRace(true);
+  }
+  function endRace(won) {
+    if (!race.on) return;
+    race.on = false; cancelAnimationFrame(race.raf);
+    $("botCar").classList.remove("go");
+    state.done = true;
+    const p = prog(state.topic);
+    p.raceFactor = clampNum(clampNum(p.raceFactor, 0.5, 2, 1) * (won ? 0.92 : 1.08), 0.5, 2, 1);
+    p.raceWins = (Number.isInteger(p.raceWins) ? p.raceWins : 0) + (won ? 1 : 0);
+    saveProg();
+    if (won) earn(COINS.raceWin, false);
+    setTimeout(() => raceResults(won), 900);
+  }
+  function stopRace() { race.on = false; cancelAnimationFrame(race.raf); }
+  function raceResults(won) {
+    const right = Math.round(race.me * RACE_GOAL), missed = state.results.filter(r => !r.ok);
+    $("resTitle").textContent = won ? "🏆 You won the race!" : "🏁 Robo won this time!";
+    $("resStars").textContent = won ? "🥇" : "🥈";
+    $("resScore").textContent = won
+      ? `You got ${RACE_GOAL} right before Robo crossed the line! +${COINS.raceWin} 💰`
+      : `You got ${right} right. Just ${RACE_GOAL - right} more and you'd have won! Robo will drive a little slower next time.`;
+    $("resLevel").textContent = won ? "Robo will drive a little faster next time. 😎" : "";
+    $("resReview").innerHTML = missed.length
+      ? `<p class="muted">Let's look at these again:</p><ul class="review">${missed.map(r => `<li>${r.review}</li>`).join("")}</ul>` : "";
+    $("resLearnBtn").classList.toggle("hidden", !missList(state.topic).length);
+    $("againBtn").textContent = "🏁 Race again";
+    show("results");
+    if (won) { confetti(); Sound.horn(); }
+    speak($("resTitle").textContent.replace(/[^\w\s!']/g, ""));
+  }
+
   // ---------- game state ----------
   const state = {
     topic: null, mode: null, total: 10, results: [], q: null, tries: 0, done: false, hintShown: false,
@@ -1235,22 +1657,29 @@
 
   $("learnBtn").onclick = () => start("learn");
   $("quizBtn").onclick = () => start("quiz");
-  $("againBtn").onclick = () => start("quiz");
+  $("raceBtn").onclick = () => start("race");
+  $("againBtn").onclick = () => start(state.mode === "learn" ? "quiz" : state.mode);
   $("resLearnBtn").onclick = () => start("learn");
   $("quitBtn").onclick = () => {
     if (state.mode === "quiz" && state.results.length > 0 && !confirm("Stop the quiz? This quiz won't count.")) return;
     try { speechSynthesis.cancel(); } catch {}
+    stopRace();
     renderHome(); show("home");
   };
   $("sayBtn").onclick = () => state.q && speak((state.q.prompt || "") + " " + state.q.say);
   $("nextBtn").onclick = next;
   $("hintBtn").onclick = showHow;
 
-  function makeQ(topic, t, typed, seed = Math.floor(Math.random() * 2147483647)) {
+  function makeQ(topic, t, typed, seed = Math.floor(Math.random() * 2147483647), widgets = true) {
+    // The hands-on decision uses its own stream, so non-hands-on questions are identical to older versions.
+    const hands = widgets && WIDGETS[topic] && seeded(seed ^ 0x5bd1e995)() < WIDGET_RATE;
     rng = seeded(seed);
     let q;
-    try { q = TOPICS[topic].make(t); } finally { rng = Math.random; }
-    Object.assign(q, { seed, t, typed });
+    try { q = (hands && WIDGETS[topic](t)) || TOPICS[topic].make(t); } finally { rng = Math.random; }
+    Object.assign(q, { seed, t, typed, w: !!widgets });
+    if (!q.pics) q.pics = () => "";
+    if (!q.choices) q.choices = [q.answer];
+    if (q.widget) { q.typed = false; return q; }
     if (q.num == null && /^\d+$/.test(q.answer)) q.num = Number(q.answer);
     if (q.num == null) q.typed = false;
     return q;
@@ -1259,7 +1688,7 @@
   function addMiss(q) {
     const m = missList(state.topic);
     if (m.some(x => x.seed === q.seed)) return;
-    m.push({ seed: q.seed, t: q.t, typed: q.typed });
+    m.push({ seed: q.seed, t: q.t, typed: q.typed, w: q.w });
     if (m.length > 20) m.shift();
     saveProg();
   }
@@ -1276,14 +1705,15 @@
     state.quizLevel = prog(state.topic).level;
     // Learn mode starts with problems missed in the last quiz.
     // Learn mode starts with saved misses for this topic (from any earlier session).
-    state.queue = mode === "learn" ? missList(state.topic).map((m, i) => ({ q: makeQ(state.topic, m.t, m.typed, m.seed), due: i * 2 + 1 })) : [];
+    state.queue = mode === "learn" ? missList(state.topic).map((m, i) => ({ q: makeQ(state.topic, m.t, m.typed, m.seed, m.w === true), due: i * 2 + 1 })) : [];
     show("play");
+    if (mode === "race") startRace(); else stopRace();
     newQuestion();
   }
 
   function labelPlay() {
     const L = state.mode === "quiz" ? state.quizLevel : prog(state.topic).level;
-    $("playLabel").textContent = `${TOPICS[state.topic].name} · ${state.mode === "quiz" ? "Quiz" : "Learn"} · Lv ${L}`;
+    $("playLabel").textContent = `${TOPICS[state.topic].name} · ${{ quiz: "Quiz", race: "Race", learn: "Learn" }[state.mode]} · Lv ${L}`;
   }
 
   function newQuestion() {
@@ -1298,10 +1728,10 @@
     } else {
       const lv = curLevel();
       let guard = 0;
-      do { q = makeQ(state.topic, lv.t, lv.typed); } while (state.q && q.review === state.q.review && guard++ < 10);
+      do { q = makeQ(state.topic, lv.t, lv.typed, undefined, state.mode !== "race"); } while (state.q && q.review === state.q.review && guard++ < 10);
       q.retry = false;
     }
-    state.q = q; state.tries = 0; state.done = false; state.hintShown = false; state.input = "";
+    state.q = q; state.tries = 0; state.done = false; state.hintShown = false; state.input = ""; state.qStart = performance.now();
     renderBar();
     $("tag").classList.toggle("hidden", !q.retry);
     $("prompt").innerHTML = q.prompt || "Solve it:";
@@ -1312,9 +1742,10 @@
     $("nextBtn").classList.add("hidden");
     $("hintBtn").classList.toggle("hidden", state.mode !== "learn");
     drawPics(false);
-    $("answers").classList.toggle("hidden", q.typed);
+    $("answers").classList.toggle("hidden", q.typed || !!q.widget);
     $("pad").classList.toggle("hidden", !q.typed);
-    if (q.typed) drawPad(); else drawAnswers();
+    $("widget").classList.toggle("hidden", !q.widget);
+    if (q.widget) mountWidget(q); else if (q.typed) drawPad(); else drawAnswers();
   }
 
   function renderBar() {
@@ -1322,6 +1753,8 @@
     bar.innerHTML = "";
     bar.classList.toggle("hidden", state.mode !== "quiz");
     st.classList.toggle("hidden", state.mode !== "learn");
+    $("track").classList.toggle("hidden", state.mode !== "race");
+    if (state.mode === "race") return;
     if (state.mode === "learn") {
       const p = prog(state.topic), max = TOPICS[state.topic].levels.length;
       st.textContent = p.level >= max
@@ -1399,9 +1832,19 @@
   function answer(ok, btn) {
     const q = state.q, fb = $("feedback");
     state.tries++;
-    if (state.tries === 1) firstTry(ok);
+    if (state.tries === 1) {
+      if (!q.widget) {                                   // remember how fast this kid answers (for race mode)
+        const p = prog(state.topic), sec = Math.min((performance.now() - state.qStart) / 1000, 60);
+        p.avgSec = Number.isFinite(p.avgSec) ? p.avgSec * 0.8 + sec * 0.2 : sec;
+        saveProg();
+      }
+      firstTry(ok);
+    }
+    if (ok) Sound.right(); else Sound.wrong();
     if (ok) {
-      if (btn) btn.classList.add("right"); else $("display").classList.add("right");
+      if (btn) btn.classList.add("right");
+      else if (q.widget) { $("widget").classList.add("right"); widgetCtl.lock(); }
+      else $("display").classList.add("right");
       state.done = true;
       fb.className = "feedback good";
       const msg = pick(PRAISE);
@@ -1410,21 +1853,24 @@
       finishQuestion(state.tries === 1);
     } else if (state.mode === "learn") {
       if (btn) { btn.classList.add("wrong"); btn.disabled = true; }
+      else if (q.widget) { const d = $("widget"); d.classList.remove("shake"); void d.offsetWidth; d.classList.add("shake"); }
       else { const d = $("display"); d.classList.remove("shake"); void d.offsetWidth; d.classList.add("shake"); state.input = ""; renderDisplay(); }
       fb.className = "feedback bad";
-      fb.textContent = pick(TRY);
+      fb.textContent = q.widget ? widgetCtl.why() : pick(TRY);
       speak(fb.textContent);
       if (state.tries >= 2 && !state.hintShown) showHow();
     } else {
       if (btn) {
         btn.classList.add("wrong");
         [...$("answers").children].forEach(b => { if (b.textContent === q.answer) b.classList.add("right"); });
+      } else if (q.widget) {
+        widgetCtl.reveal(); widgetCtl.lock(); $("widget").classList.add("done");
       } else {
         $("display").innerHTML = `<s>${state.input}${q.unit || ""}</s>&nbsp;→&nbsp;${q.answer}`;
       }
       state.done = true;
       fb.className = "feedback bad";
-      fb.textContent = `The answer is ${q.answer}. ${q.explain}`;
+      fb.textContent = q.widget ? `Here's the answer. ${q.explain}` : `The answer is ${q.answer}. ${q.explain}`;
       finishQuestion(false);
     }
   }
@@ -1441,7 +1887,7 @@
       if (state.streak >= STREAK_TO_LEVEL && p.level < max) {
         p.level++; state.streak = 0; saveProg();
         $("levelMsg").textContent = `⬆️ Level up! Now Level ${p.level}: ${levelDesc(TOPICS[state.topic], p.level)}${rewardLevelUp(state.topic, p.level)}`;
-        confetti();
+        confetti(); setTimeout(() => Sound.fanfare(), 250);
       }
     } else {
       state.streak = 0; state.missStreak++;
@@ -1458,6 +1904,11 @@
 
   function finishQuestion(ok) {
     state.results.push({ ok, review: state.q.review, q: state.q });
+    if (state.mode === "race") {
+      if (ok) raceBoost();
+      if (!race.on) { $("hintBtn").classList.add("hidden"); return; }
+      if (ok) { const q = state.q; setTimeout(() => { if (state.q === q && race.on && $("modal").classList.contains("hidden")) next(); }, 650); }
+    }
     renderBar();
     $("hintBtn").classList.add("hidden");
     $("nextBtn").classList.remove("hidden");
@@ -1494,12 +1945,13 @@
       ? `<p class="muted">Let's look at these again:</p><ul class="review">${missed.map(r => `<li>${r.review}</li>`).join("")}</ul>`
       : "";
     $("resLearnBtn").classList.toggle("hidden", !missList(state.topic).length);
+    $("againBtn").textContent = "Play again";
     show("results");
-    if (stars >= 2) confetti();
+    if (stars >= 2) { confetti(); Sound.fanfare(); }
     speak(`${$("resTitle").textContent} You got ${score} out of 10. ${lvMsg}`);
   }
 
-  if (location.hash === "#test") { window.__mg = state; window.__mgr = () => rewards; } // test hook only
+  if (location.hash === "#test") { window.__mg = state; window.__mgr = () => rewards; window.__race = race; window.__w = () => widgetCtl; } // test hook only
   renderHome();
 })();
 </script>
