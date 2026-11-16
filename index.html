@@ -11,13 +11,11 @@
     --ink: #2b2140;
     --muted: #6b5f80;
     --line: #eadfca;
-    --add: #2f9e5b;
-    --sub: #e0613a;
-    --big: #3a6fe0;
-    --count: #b0489f;
-    --twenty: #c28a00;
     --good: #2f9e5b;
     --bad: #d6453a;
+    --accent: #3a6fe0;
+    --block: #58a6ff;
+    --block-edge: #1f5fb8;
     --shadow: 0 4px 0 rgba(43, 33, 64, .15);
   }
   @media (prefers-color-scheme: dark) {
@@ -26,6 +24,10 @@
       --shadow: 0 4px 0 rgba(0,0,0,.4);
     }
   }
+  :root[data-theme="dark"] {
+    --bg: #1d1828; --card: #2a2338; --ink: #f6f0ff; --muted: #b9add0; --line: #3d3450;
+    --shadow: 0 4px 0 rgba(0,0,0,.4);
+  }
   * { box-sizing: border-box; }
   html, body { margin: 0; }
   body {
@@ -33,7 +35,7 @@
     font-family: "Trebuchet MS", "Comic Sans MS", system-ui, sans-serif;
     min-height: 100vh; -webkit-tap-highlight-color: transparent;
   }
-  main { max-width: 720px; margin: 0 auto; padding: 16px; }
+  main { max-width: 760px; margin: 0 auto; padding: 16px; }
   header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
   h1 { font-size: clamp(28px, 7vw, 40px); margin: 8px 0; }
   h2 { font-size: clamp(22px, 5vw, 30px); margin: 4px 0 12px; }
@@ -45,15 +47,15 @@
     transition: transform .08s;
   }
   button:active { transform: translateY(3px); box-shadow: none; }
-  button:focus-visible { outline: 4px solid var(--big); outline-offset: 2px; }
+  button:focus-visible { outline: 4px solid var(--accent); outline-offset: 2px; }
   .small { font-size: 18px; padding: 8px 14px; border-radius: 14px; }
   .hidden { display: none !important; }
 
-  .topics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
-  .topic { padding: 18px; text-align: left; display: grid; gap: 6px; border-color: var(--c); }
-  .topic .t { font-size: 24px; font-weight: bold; color: var(--c); }
-  .topic .s { font-size: 17px; color: var(--muted); }
-  .topic .best { font-size: 16px; }
+  .topics { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+  .topic { padding: 16px; text-align: left; display: grid; gap: 4px; border-color: var(--c); }
+  .topic .t { font-size: 22px; font-weight: bold; color: var(--c); }
+  .topic .s { font-size: 16px; color: var(--muted); }
+  .topic .best { font-size: 15px; }
 
   .modes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 8px; }
   .mode { padding: 22px 14px; font-size: 24px; font-weight: bold; }
@@ -66,60 +68,86 @@
   .dot.now { border-color: var(--ink); }
 
   .card { background: var(--card); border: 3px solid var(--line); border-radius: 24px; padding: 18px; text-align: center; }
-  .question { font-size: clamp(44px, 13vw, 72px); font-weight: bold; letter-spacing: 2px; margin: 4px 0; }
-  .prompt { font-size: 22px; margin: 0 0 6px; }
-  .pics { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; min-height: 60px; margin: 10px 0; }
-  .group { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; max-width: 260px; padding: 8px; border: 3px dashed var(--line); border-radius: 16px; }
-  .obj { font-size: 34px; line-height: 1; position: relative; }
-  .obj.gone { opacity: .35; }
-  .obj.gone::after { content: "✕"; position: absolute; inset: 0; color: var(--bad); font-size: 34px; text-align: center; }
-  .obj.pop { animation: pop .35s ease; }
-  .opsign { font-size: 40px; font-weight: bold; }
-  @keyframes pop { 0% { transform: scale(.4); } 70% { transform: scale(1.25); } 100% { transform: scale(1); } }
+  .prompt { font-size: 22px; margin: 0 0 6px; line-height: 1.45; }
+  .question { font-size: clamp(40px, 12vw, 66px); font-weight: bold; letter-spacing: 2px; margin: 4px 0; }
+  .pics { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px; margin: 10px 0; }
+  .pics:empty { display: none; }
+  .opsign { font-size: 36px; font-weight: bold; }
+  .pop { animation: pop .35s ease; }
+  @keyframes pop { 0% { transform: scale(.4); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
 
-  .tenframe { display: grid; grid-template-columns: repeat(5, 40px); gap: 4px; padding: 6px; border: 3px solid var(--ink); border-radius: 10px; }
-  .tenframe div { width: 40px; height: 40px; border: 2px solid var(--line); border-radius: 6px; display: grid; place-items: center; font-size: 26px; }
+  /* base-ten blocks */
+  .blocks { display: flex; gap: 6px; align-items: flex-end; flex-wrap: wrap; justify-content: center; padding: 8px; border: 3px dashed var(--line); border-radius: 14px; max-width: 340px; }
+  .blocks .lbl { width: 100%; font-weight: bold; font-size: 20px; }
+  .b100, .b10, .b1 {
+    background-color: var(--block); border: 2px solid var(--block-edge);
+    background-image: linear-gradient(var(--block-edge) 1px, transparent 1px), linear-gradient(90deg, var(--block-edge) 1px, transparent 1px);
+    background-size: 10px 10px;
+  }
+  .b100 { width: 54px; height: 54px; }
+  .b10 { width: 14px; height: 54px; background-size: 10px 10px; }
+  .b1 { width: 14px; height: 14px; background-image: none; }
+  .b1.gone, .b10.gone { opacity: .3; position: relative; }
+  .b1.gone::after, .b10.gone::after { content: ""; position: absolute; inset: 0; background: linear-gradient(45deg, transparent 45%, var(--bad) 45%, var(--bad) 55%, transparent 55%); }
+  .b1.new { background-color: #ffcf3f; border-color: #a77b00; }
+
+  .dots { display: grid; grid-template-columns: repeat(2, 26px); gap: 6px; padding: 8px; border: 3px dashed var(--line); border-radius: 14px; }
+  .dots span { width: 26px; height: 26px; border-radius: 50%; background: var(--accent); }
+  .dots span.lonely { background: var(--bad); }
+  .row { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; max-width: 300px; padding: 8px; border: 3px dashed var(--line); border-radius: 14px; font-size: 26px; }
+  .row .x { opacity: .3; text-decoration: line-through; }
+
+  /* coins */
+  .coin { display: inline-grid; place-items: center; border-radius: 50%; font-weight: bold; font-size: 14px; color: #222; border: 3px solid; box-shadow: inset 0 0 0 3px rgba(255,255,255,.4); }
+  .coin.q { width: 64px; height: 64px; background: #d9dde3; border-color: #8a929c; font-size: 16px; }
+  .coin.d { width: 44px; height: 44px; background: #d9dde3; border-color: #8a929c; }
+  .coin.n { width: 54px; height: 54px; background: #c8ccd2; border-color: #7a828c; }
+  .coin.p { width: 48px; height: 48px; background: #d38a4a; border-color: #8b5023; }
+
+  .clock { width: 200px; height: 200px; }
+  .clock .face { fill: var(--card); stroke: var(--ink); stroke-width: 6; }
+  .clock text { fill: var(--ink); font-size: 18px; font-weight: bold; text-anchor: middle; dominant-baseline: central; font-family: inherit; }
+  .clock .hour { stroke: var(--bad); stroke-width: 8; stroke-linecap: round; }
+  .clock .min { stroke: var(--accent); stroke-width: 5; stroke-linecap: round; }
+  .clock .tick { stroke: var(--muted); stroke-width: 2; }
+  .key { font-size: 16px; color: var(--muted); width: 100%; }
+  .key b.h { color: var(--bad); } .key b.m { color: var(--accent); }
 
   .answers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
-  .answers button { font-size: clamp(34px, 10vw, 52px); font-weight: bold; padding: 14px 0; }
+  .answers.two { grid-template-columns: 1fr 1fr; }
+  .answers button { font-size: clamp(28px, 8vw, 44px); font-weight: bold; padding: 14px 4px; }
   .answers button.right { background: var(--good); border-color: var(--good); color: #fff; }
   .answers button.wrong { background: var(--bad); border-color: var(--bad); color: #fff; opacity: .7; }
-  .answers.two { grid-template-columns: 1fr 1fr; }
 
-  .feedback { min-height: 64px; font-size: 22px; margin: 12px 0 0; font-weight: bold; }
+  .feedback { min-height: 60px; font-size: 21px; margin: 12px 0 0; font-weight: bold; line-height: 1.4; }
   .feedback.good { color: var(--good); }
   .feedback.bad { color: var(--bad); }
   .tools { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
-  .next { font-size: 24px; padding: 12px 28px; font-weight: bold; background: var(--big); color: #fff; border-color: var(--big); }
+  .next { font-size: 24px; padding: 12px 28px; font-weight: bold; background: var(--accent); color: #fff; border-color: var(--accent); }
 
   .stars { font-size: 56px; letter-spacing: 6px; }
-  .review { text-align: left; margin: 12px auto; max-width: 420px; font-size: 20px; }
+  .review { text-align: left; margin: 12px auto; max-width: 480px; font-size: 19px; }
   .review li { margin: 6px 0; }
   .confetti { position: fixed; top: -40px; font-size: 28px; pointer-events: none; animation: fall 1.8s linear forwards; }
   @keyframes fall { to { transform: translateY(110vh) rotate(540deg); } }
-  @media (prefers-reduced-motion: reduce) { .obj.pop, .confetti { animation: none; } .confetti { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .pop, .confetti { animation: none; } .confetti { display: none; } }
   @media (max-width: 420px) {
     .modes { grid-template-columns: 1fr; }
-    .obj { font-size: 28px; }
-    .tenframe { grid-template-columns: repeat(5, 34px); }
-    .tenframe div { width: 34px; height: 34px; font-size: 22px; }
+    .clock { width: 170px; height: 170px; }
+    .answers { gap: 8px; }
   }
 </style>
 </head>
 <body>
 <main>
-  <!-- HOME -->
   <section id="home">
     <h1>🌻 Math Garden</h1>
-    <p class="muted">Pick what you want to practice.</p>
+    <p class="muted">2nd grade math. Pick what you want to practice.</p>
     <div class="topics" id="topics"></div>
   </section>
 
-  <!-- MODE PICK -->
   <section id="modePick" class="hidden">
-    <header>
-      <button class="small" data-go="home">⬅ Back</button>
-    </header>
+    <header><button class="small" data-go="home">⬅ Back</button></header>
     <h2 id="modeTitle"></h2>
     <div class="modes">
       <button class="mode" id="learnBtn">📖 Learn<span>Pictures and hints. Try again if you miss.</span></button>
@@ -127,7 +155,6 @@
     </div>
   </section>
 
-  <!-- PLAY -->
   <section id="play" class="hidden">
     <header>
       <button class="small" id="quitBtn">⬅ Stop</button>
@@ -148,7 +175,6 @@
     </div>
   </section>
 
-  <!-- RESULTS -->
   <section id="results" class="hidden">
     <div class="card">
       <h2 id="resTitle"></h2>
@@ -165,62 +191,257 @@
 
 <script>
 (() => {
-  // ---------- topics ----------
-  const OBJS = ["🍎", "⭐", "🐞", "🌸", "🐟", "🍓", "🎈", "🐥", "🍪", "🚗"];
+  // ---------- utilities ----------
   const rand = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
   const pick = arr => arr[Math.floor(Math.random() * arr.length)];
   const shuffle = arr => { for (let i = arr.length - 1; i > 0; i--) { const j = rand(0, i); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; };
+  const tens = n => Math.floor(n / 10) % 10, ones = n => n % 10, hund = n => Math.floor(n / 100);
+
+  // Three numeric choices: the answer + the most likely mistakes first, then near numbers.
+  function numChoices(answer, mistakes, min = 0, max = 999, fmt = String) {
+    const set = new Set([answer]);
+    for (const m of mistakes) { if (set.size >= 3) break; if (m >= min && m <= max) set.add(m); }
+    for (const d of shuffle([1, -1, 10, -10, 2, -2])) { if (set.size >= 3) break; const v = answer + d; if (v >= min && v <= max) set.add(v); }
+    return shuffle([...set]).map(fmt);
+  }
+
+  // ---------- pictures ----------
+  function blocks(n, opts = {}) {
+    const { label = true, labelText = String(n), goneTens = 0, goneOnes = 0, newOnes = 0 } = opts;
+    let h = `<div class="blocks">`;
+    if (label) h += `<div class="lbl">${labelText}</div>`;
+    for (let i = 0; i < hund(n); i++) h += `<div class="b100"></div>`;
+    const t = tens(n), o = ones(n) + newOnes;
+    for (let i = 0; i < t; i++) h += `<div class="b10 ${i >= t - goneTens ? "gone" : ""}"></div>`;
+    for (let i = 0; i < o; i++) h += `<div class="b1 ${i >= ones(n) ? "new" : ""} ${i >= o - goneOnes ? "gone" : ""}"></div>`;
+    return h + `</div>`;
+  }
+  const coinHTML = { 25: '<span class="coin q">25¢</span>', 10: '<span class="coin d">10¢</span>', 5: '<span class="coin n">5¢</span>', 1: '<span class="coin p">1¢</span>' };
+  function clock(h, m) {
+    let s = `<svg class="clock" viewBox="0 0 200 200" role="img" aria-label="clock"><circle class="face" cx="100" cy="100" r="94"/>`;
+    for (let i = 0; i < 60; i++) {
+      const a = i * 6 * Math.PI / 180, r1 = i % 5 ? 86 : 82;
+      s += `<line class="tick" x1="${100 + 90 * Math.sin(a)}" y1="${100 - 90 * Math.cos(a)}" x2="${100 + r1 * Math.sin(a)}" y2="${100 - r1 * Math.cos(a)}"/>`;
+    }
+    for (let i = 1; i <= 12; i++) { const a = i * 30 * Math.PI / 180; s += `<text x="${100 + 68 * Math.sin(a)}" y="${100 - 68 * Math.cos(a)}">${i}</text>`; }
+    const ha = ((h % 12) + m / 60) * 30 * Math.PI / 180, ma = m * 6 * Math.PI / 180;
+    s += `<line class="hour" x1="100" y1="100" x2="${100 + 45 * Math.sin(ha)}" y2="${100 - 45 * Math.cos(ha)}"/>`;
+    s += `<line class="min" x1="100" y1="100" x2="${100 + 74 * Math.sin(ma)}" y2="${100 - 74 * Math.cos(ma)}"/>`;
+    return s + `<circle cx="100" cy="100" r="6" fill="currentColor"/></svg>`;
+  }
+  const fmtTime = (h, m) => `${h}:${String(m).padStart(2, "0")}`;
+
+  // ---------- topics ----------
+  // Each make() returns: prompt, big, say, answer, choices, pics(explain) -> html, alwaysPics, explain, review
+  const NAMES = ["Maya", "Leo", "Ava", "Sam", "Zoe", "Eli", "Mia", "Ben", "Nia", "Omar"];
+  const THINGS = ["stickers", "marbles", "shells", "cards", "beads", "rocks", "apples", "crayons"];
 
   const TOPICS = {
-    count: {
-      name: "Counting", sub: "How many do you see? (1–10)", color: "var(--count)",
+    facts: {
+      name: "Fast Facts", sub: "Add and subtract within 20", color: "#2f9e5b",
       make() {
-        const n = rand(1, 10);
-        return { kind: "count", n, answer: n, obj: pick(OBJS),
-          text: "How many?", say: "How many do you see? Count them!" };
+        if (Math.random() < .5) {
+          const a = rand(2, 10), b = rand(Math.max(1, 10 - a), 10), s = a + b;
+          const need = 10 - a;
+          return { big: `${a} + ${b} = ?`, say: `What is ${a} plus ${b}?`, answer: String(s),
+            choices: numChoices(s, [s - 1, s + 1, s + 10], 0, 30),
+            explain: s > 10 && need > 0 ? `Make 10! ${a} + ${need} = 10. Then add the ${b - need} left: 10 + ${b - need} = ${s}.` : `${a} and ${b} more makes ${s}.`,
+            pics: ex => `<div class="row">${"🔵".repeat(a)}</div><span class="opsign">+</span><div class="row">${"🔴".repeat(b)}</div>`,
+            review: `${a} + ${b} = ${s}` };
+        }
+        const a = rand(11, 20), b = rand(2, 10), d = a - b;
+        return { big: `${a} − ${b} = ?`, say: `What is ${a} minus ${b}?`, answer: String(d),
+          choices: numChoices(d, [d + 1, d - 1, a + b > 20 ? d + 2 : a + b], 0, 30),
+          explain: `Think addition! ${b} + ? = ${a}. ${b} + ${d} = ${a}, so ${a} − ${b} = ${d}.`,
+          pics: ex => `<div class="row">${Array.from({ length: a }, (_, i) => `<span class="${ex && i >= a - b ? "x" : ""}">🍎</span>`).join("")}</div>`,
+          review: `${a} − ${b} = ${d}` };
       }
     },
-    add: {
-      name: "Adding", sub: "Put together, up to 10", color: "var(--add)",
+    add100: {
+      name: "Adding to 100", sub: "Two-digit adding, with regrouping", color: "#0f8a7e",
       make() {
-        const a = rand(0, 9), b = rand(0, 10 - a);
-        return { kind: "add", a, b, answer: a + b, obj: pick(OBJS),
-          text: `${a} + ${b} = ?`, say: `What is ${a} plus ${b}?` };
+        let a, b, regroup = Math.random() < .7, guard = 0;
+        do { a = rand(11, 79); b = rand(11, 89 - a + 10); guard++; }
+        while ((a + b > 99 || (ones(a) + ones(b) >= 10) !== regroup) && guard < 200);
+        const s = a + b, noCarry = (tens(a) + tens(b)) * 10 + ((ones(a) + ones(b)) % 10);
+        const oSum = ones(a) + ones(b);
+        return { big: `${a} + ${b} = ?`, say: `What is ${a} plus ${b}?`, answer: String(s),
+          choices: numChoices(s, [noCarry !== s ? noCarry : s + 10, s - 10, s + 1], 0, 199),
+          explain: oSum >= 10
+            ? `Add the ones: ${ones(a)} + ${ones(b)} = ${oSum}. That's 1 ten and ${oSum - 10} ones! Add the tens: ${tens(a)} + ${tens(b)} + 1 = ${tens(a) + tens(b) + 1} tens. Answer: ${s}.`
+            : `Add the ones: ${ones(a)} + ${ones(b)} = ${oSum}. Add the tens: ${tens(a)} + ${tens(b)} = ${tens(a) + tens(b)} tens. Answer: ${s}.`,
+          pics: ex => ex ? blocks(a) + `<span class="opsign">+</span>` + blocks(b) + `<span class="opsign">=</span>` + blocks(s) : blocks(a) + `<span class="opsign">+</span>` + blocks(b),
+          review: `${a} + ${b} = ${s}` };
       }
     },
-    sub: {
-      name: "Taking Away", sub: "Take away, up to 10", color: "var(--sub)",
+    sub100: {
+      name: "Subtracting to 100", sub: "Two-digit take away, with regrouping", color: "#e0613a",
       make() {
-        const a = rand(1, 10), b = rand(0, a);
-        return { kind: "sub", a, b, answer: a - b, obj: pick(OBJS),
-          text: `${a} − ${b} = ?`, say: `What is ${a} minus ${b}?` };
+        let a, b, regroup = Math.random() < .7, guard = 0;
+        do { a = rand(30, 99); b = rand(11, a - 5); guard++; }
+        while ((ones(a) < ones(b)) !== regroup && guard < 200);
+        const d = a - b, flipped = (tens(a) - tens(b)) * 10 + Math.abs(ones(a) - ones(b));
+        return { big: `${a} − ${b} = ?`, say: `What is ${a} minus ${b}?`, answer: String(d),
+          choices: numChoices(d, [flipped !== d ? flipped : d + 10, d - 10, d + 1], 0, 99),
+          explain: ones(a) < ones(b)
+            ? `You can't take ${ones(b)} from ${ones(a)}. Trade 1 ten for 10 ones: now ${ones(a) + 10} ones. ${ones(a) + 10} − ${ones(b)} = ${ones(a) + 10 - ones(b)}. Tens: ${tens(a) - 1} − ${tens(b)} = ${tens(a) - 1 - tens(b)}. Answer: ${d}.`
+            : `Ones: ${ones(a)} − ${ones(b)} = ${ones(a) - ones(b)}. Tens: ${tens(a)} − ${tens(b)} = ${tens(a) - tens(b)}. Answer: ${d}.`,
+          pics: ex => {
+            if (!ex) return blocks(a) + `<span class="opsign">−</span><div class="blocks"><div class="lbl">take away ${b}</div></div>`;
+            if (ones(a) < ones(b)) {
+              // one ten broken into 10 yellow ones
+              const traded = a - 10;
+              return blocks(traded, { labelText: `${a}: trade 1 ten for 10 ones`, newOnes: 10, goneTens: tens(b), goneOnes: ones(b) }) + blocks(d, { labelText: `${d} left` });
+            }
+            return blocks(a, { labelText: `${a}: take away ${b}`, goneTens: tens(b), goneOnes: ones(b) }) + blocks(d, { labelText: `${d} left` });
+          },
+          review: `${a} − ${b} = ${d}` };
       }
     },
-    twenty: {
-      name: "Adding to 20", sub: "Make ten, then add more", color: "var(--twenty)",
+    place: {
+      name: "Place Value", sub: "Hundreds, tens and ones", color: "#3a6fe0",
       make() {
-        const a = rand(5, 10), b = rand(Math.max(1, 11 - a), 20 - a);
-        return { kind: "twenty", a, b, answer: a + b, obj: pick(OBJS),
-          text: `${a} + ${b} = ?`, say: `What is ${a} plus ${b}?` };
+        const n = rand(101, 999), h = hund(n), t = tens(n), o = ones(n);
+        const kind = pick(["blocks", "worth", "which"]);
+        if (kind === "blocks") {
+          return { prompt: "What number do the blocks show?", big: "", say: "What number do the blocks show? Big squares are hundreds, sticks are tens, little cubes are ones.",
+            answer: String(n), alwaysPics: true,
+            choices: numChoices(n, [h * 100 + o * 10 + t, t * 100 + h * 10 + o, h + t + o].filter(v => v !== n && v >= 0), 0, 999),
+            explain: `${h} hundreds is ${h * 100}. ${t} tens is ${t * 10}. ${o} ones is ${o}. ${h * 100} + ${t * 10} + ${o} = ${n}.`,
+            pics: () => blocks(n, { label: false }), review: `${h} hundreds, ${t} tens, ${o} ones = ${n}` };
+        }
+        if (kind === "worth") {
+          const place = pick(["h", "t"]), d = place === "h" ? h : t;
+          if (d === 0) return TOPICS.place.make();
+          const v = place === "h" ? d * 100 : d * 10;
+          return { prompt: `In <b>${n}</b>, what is the <b>${d}</b> worth?`, big: "", say: `In the number ${n}, what is the ${place === "h" ? "first" : "middle"} digit ${d} worth?`,
+            answer: String(v), choices: shuffle([d, d * 10, d * 100].map(String)),
+            explain: `The ${d} is in the ${place === "h" ? "hundreds" : "tens"} place, so it is worth ${v}.`,
+            pics: () => blocks(n), review: `In ${n}, the ${d} is worth ${v}` };
+        }
+        const place = pick(["hundreds", "tens", "ones"]), ans = { hundreds: h, tens: t, ones: o }[place];
+        const opts = [...new Set([String(h), String(t), String(o)])];
+        while (opts.length < 3) { const r = String(rand(0, 9)); if (!opts.includes(r)) opts.push(r); }
+        return { prompt: `Which digit is in the <b>${place}</b> place?`, big: String(n), say: `In the number ${n}, which digit is in the ${place} place?`,
+          answer: String(ans), choices: shuffle(opts),
+          explain: `${n}: ${h} is hundreds, ${t} is tens, ${o} is ones. The ${place} digit is ${ans}.`,
+          pics: () => blocks(n), review: `The ${place} digit in ${n} is ${ans}` };
+      }
+    },
+    skip: {
+      name: "Skip Counting", sub: "By 2s, 5s, 10s and 100s", color: "#b0489f",
+      make() {
+        const step = pick([2, 5, 10, 100]);
+        const start = step === 100 ? rand(0, 5) * 100 : step * rand(0, step === 2 ? 40 : step === 5 ? 15 : 8);
+        const seq = [0, 1, 2, 3].map(i => start + i * step), blank = rand(1, 3), ans = seq[blank];
+        const shown = seq.map((v, i) => i === blank ? "__" : v).join(", ");
+        return { prompt: `Count by <b>${step}s</b>. What goes in the blank?`, big: shown, say: `Count by ${step}s. ${seq.map((v, i) => i === blank ? "blank" : v).join(", ")}. What number goes in the blank?`,
+          answer: String(ans), choices: numChoices(ans, [ans + 1, ans - 1, ans + step], 0, 1000),
+          explain: `Each number is ${step} more than the one before. ${seq[blank - 1]} + ${step} = ${ans}.`,
+          pics: () => "", review: `${seq.join(", ")}` };
       }
     },
     compare: {
-      name: "Bigger or Smaller", sub: "Which number is more?", color: "var(--big)",
+      name: "Bigger or Smaller", sub: "Compare numbers up to 1000", color: "#c28a00",
       make() {
-        let a = rand(0, 20), b = rand(0, 20);
-        while (b === a) b = rand(0, 20);
-        const askMore = Math.random() < .5;
-        return { kind: "compare", a, b, askMore, answer: askMore ? Math.max(a, b) : Math.min(a, b),
-          text: askMore ? "Which is MORE?" : "Which is LESS?",
-          say: askMore ? `Which is more, ${a} or ${b}?` : `Which is less, ${a} or ${b}?` };
+        let a = rand(100, 999), b;
+        // often share the hundreds digit so kids must look at tens
+        do { b = Math.random() < .6 ? hund(a) * 100 + rand(0, 99) : rand(100, 999); } while (b === a);
+        const more = Math.random() < .5, ans = more ? Math.max(a, b) : Math.min(a, b);
+        const why = hund(a) !== hund(b) ? `Look at the hundreds first: ${hund(Math.max(a, b))} hundreds is more than ${hund(Math.min(a, b))} hundreds.`
+          : tens(a) !== tens(b) ? `Same hundreds, so look at the tens: ${tens(Math.max(a, b))} tens is more than ${tens(Math.min(a, b))} tens.`
+          : `Same hundreds and tens, so look at the ones: ${ones(Math.max(a, b))} is more than ${ones(Math.min(a, b))}.`;
+        return { prompt: `Which number is <b>${more ? "MORE" : "LESS"}</b>?`, big: "", say: `Which is ${more ? "more" : "less"}, ${a} or ${b}?`,
+          answer: String(ans), choices: [String(a), String(b)],
+          explain: `${why} So ${Math.max(a, b)} > ${Math.min(a, b)}.`,
+          pics: ex => ex ? blocks(a) + blocks(b) : "", review: `${Math.max(a, b)} > ${Math.min(a, b)}` };
+      }
+    },
+    evenodd: {
+      name: "Even or Odd", sub: "Can it make pairs?", color: "#6a5acd",
+      make() {
+        const n = rand(1, 20), even = n % 2 === 0;
+        return { prompt: "Is this number even or odd?", big: String(n), say: `Is ${n} even or odd?`,
+          answer: even ? "Even" : "Odd", choices: ["Even", "Odd"],
+          explain: even ? `${n} makes ${n / 2} pairs with none left over. It's EVEN. Even numbers end in 0, 2, 4, 6 or 8.`
+                        : `${n} makes ${Math.floor(n / 2)} pairs with 1 left over. It's ODD. Odd numbers end in 1, 3, 5, 7 or 9.`,
+          pics: ex => ex ? `<div class="dots">${Array.from({ length: n }, (_, i) => `<span class="${!even && i === n - 1 ? "lonely" : ""}"></span>`).join("")}</div>` : "",
+          review: `${n} is ${even ? "even" : "odd"}` };
+      }
+    },
+    money: {
+      name: "Money", sub: "Count the coins", color: "#2f7a3e",
+      make() {
+        let coins, total;
+        do {
+          coins = [];
+          const k = rand(2, 6);
+          for (let i = 0; i < k; i++) coins.push(pick([25, 10, 10, 5, 5, 1, 1]));
+          coins.sort((x, y) => y - x);
+          total = coins.reduce((s, c) => s + c, 0);
+        } while (total >= 100);
+        const nameOf = { 25: "quarter", 10: "dime", 5: "nickel", 1: "penny" };
+        let run = 0;
+        const steps = coins.map(c => (run += c));
+        return { prompt: "How much money is this?", big: "", say: "How much money is this? Quarters are 25 cents, dimes are 10, nickels are 5, pennies are 1.",
+          answer: total + "¢", alwaysPics: true,
+          choices: numChoices(total, [coins.length, total + 5, total - 5, total + 10], 1, 99, v => v + "¢"),
+          explain: `Start with the biggest coins and count on: ${steps.join(", ")}. That's ${total}¢.`,
+          pics: () => coins.map(c => coinHTML[c]).join("") + `<div class="key">quarter 25¢ · dime 10¢ · nickel 5¢ · penny 1¢</div>`,
+          review: `${coins.map(c => nameOf[c]).join(", ")} = ${total}¢` };
+      }
+    },
+    time: {
+      name: "Telling Time", sub: "To the nearest 5 minutes", color: "#d6453a",
+      make() {
+        const h = rand(1, 12), m = rand(0, 11) * 5, ans = fmtTime(h, m);
+        const next = h === 12 ? 1 : h + 1, prev = h === 1 ? 12 : h - 1;
+        const misread = m / 5 === 0 ? 12 : m / 5;     // reading the minute hand's number as minutes
+        const opts = new Set([ans]);
+        // most common mistakes: hour hand read as the next hour, minute hand read as its number
+        if (m >= 30) opts.add(fmtTime(next, m));
+        if (misread !== m) opts.add(fmtTime(h, misread));
+        opts.add(fmtTime(prev, m));
+        opts.add(fmtTime(next, m));
+        return { prompt: "What time is it?", big: "", say: "What time does the clock show? The short red hand is the hour. The long blue hand is the minutes.",
+          answer: ans, alwaysPics: true, choices: shuffle([...opts].slice(0, 3)),
+          explain: m === 0
+            ? `The short hand points at the ${h}, so the hour is ${h}. The long hand points straight up at 12, which means 0 minutes — ${h} o'clock! It's ${ans}.`
+            : `The short hand is past the ${h}, so the hour is ${h}. The long hand points at the ${misread}: count by 5s ${misread} time${misread === 1 ? "" : "s"} = ${m} minutes. It's ${ans}.`,
+          pics: () => clock(h, m) + `<div class="key"><b class="h">short red = hour</b> · <b class="m">long blue = minutes</b></div>`,
+          review: `The clock showed ${ans}` };
+      }
+    },
+    word: {
+      name: "Word Problems", sub: "Stories with numbers to 100", color: "#8a5a2b",
+      make() {
+        const p = pick(NAMES), q = pick(NAMES.filter(x => x !== p)), t = pick(THINGS);
+        const kind = pick(["join", "take", "compare"]);
+        let text, ans, eq;
+        if (kind === "join") {
+          const a = rand(12, 60), b = rand(8, 99 - a);
+          text = `${p} has ${a} ${t}. ${p} gets ${b} more. How many ${t} does ${p} have now?`; ans = a + b; eq = `${a} + ${b} = ${ans}`;
+        } else if (kind === "take") {
+          const a = rand(30, 95), b = rand(8, a - 5);
+          text = `${p} has ${a} ${t}. ${p} gives ${b} to ${q}. How many ${t} are left?`; ans = a - b; eq = `${a} − ${b} = ${ans}`;
+        } else {
+          const a = rand(30, 95), b = rand(10, a - 3);
+          text = `${p} has ${a} ${t}. ${q} has ${b} ${t}. How many more ${t} does ${p} have than ${q}?`; ans = a - b; eq = `${a} − ${b} = ${ans}`;
+        }
+        const nums = text.match(/\d+/g).map(Number), wrongOp = kind === "join" ? nums[0] - nums[1] : nums[0] + nums[1];
+        return { prompt: text, big: "", say: text, answer: String(ans),
+          choices: numChoices(ans, [wrongOp, ans + 10, ans - 10], 0, 200),
+          explain: kind === "join" ? `"Gets more" means add: ${eq}.` : kind === "take" ? `"Gives away" means subtract: ${eq}.` : `"How many more" means find the difference — subtract: ${eq}.`,
+          pics: () => "", review: `${text} → ${eq}` };
       }
     }
   };
 
   // ---------- storage (best scores; optional) ----------
+  const KEY = "mathGarden2Best";
   const store = {
-    get() { try { return JSON.parse(localStorage.getItem("mathGardenBest") || "{}"); } catch { return {}; } },
-    set(v) { try { localStorage.setItem("mathGardenBest", JSON.stringify(v)); } catch {} }
+    get() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch { return {}; } },
+    set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} }
   };
 
   // ---------- helpers ----------
@@ -232,12 +453,11 @@
     try {
       if (!("speechSynthesis" in window)) return;
       speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
+      const u = new SpeechSynthesisUtterance(text.replace(/−/g, " minus ").replace(/¢/g, " cents"));
       u.rate = 0.9; u.pitch = 1.1;
       speechSynthesis.speak(u);
     } catch {}
   }
-
   function confetti() {
     for (let i = 0; i < 24; i++) {
       const c = document.createElement("div");
@@ -249,9 +469,9 @@
       setTimeout(() => c.remove(), 2600);
     }
   }
-
   const PRAISE = ["Great job!", "You got it!", "Super!", "Awesome!", "Yes! That's right!", "Way to go!"];
   const TRY = ["Almost! Try again.", "Not quite. You can do it!", "Oops! Look again."];
+  const starsFor = s => s >= 9 ? 3 : s >= 7 ? 2 : s >= 4 ? 1 : 0;
 
   // ---------- home ----------
   function renderHome() {
@@ -267,10 +487,9 @@
       $("topics").appendChild(b);
     }
   }
-  const starsFor = s => s >= 9 ? 3 : s >= 7 ? 2 : s >= 4 ? 1 : 0;
 
-  // ---------- game state ----------
-  const state = { topic: null, mode: null, i: 0, total: 10, results: [], q: null, tries: 0, done: false, hintShown: false };
+  // ---------- game ----------
+  const state = { topic: null, mode: null, total: 10, results: [], q: null, tries: 0, done: false, hintShown: false };
 
   $("learnBtn").onclick = () => start("learn");
   $("quizBtn").onclick = () => start("quiz");
@@ -282,158 +501,99 @@
   };
   $("sayBtn").onclick = () => state.q && speak(state.q.say);
   $("nextBtn").onclick = next;
-  $("hintBtn").onclick = () => { state.hintShown = true; $("hintBtn").classList.add("hidden"); drawPics(true); speak(explain(state.q)); $("feedback").className = "feedback"; $("feedback").textContent = explain(state.q); };
+  $("hintBtn").onclick = showHow;
+
+  function showHow() {
+    state.hintShown = true;
+    $("hintBtn").classList.add("hidden");
+    drawPics(true);
+    $("feedback").className = "feedback";
+    $("feedback").textContent = state.q.explain;
+    speak(state.q.explain);
+  }
 
   function start(mode) {
-    state.mode = mode; state.i = 0; state.results = [];
+    state.mode = mode; state.results = []; state.q = null;
     $("playLabel").textContent = `${TOPICS[state.topic].name} · ${mode === "quiz" ? "Quiz" : "Learn"}`;
     show("play");
     newQuestion();
   }
 
   function newQuestion() {
-    // avoid repeating the exact same question twice in a row
     let q, guard = 0;
-    do { q = TOPICS[state.topic].make(); } while (state.q && q.text === state.q.text && q.a === state.q.a && guard++ < 10);
+    do { q = TOPICS[state.topic].make(); } while (state.q && q.review === state.q.review && guard++ < 10);
     state.q = q; state.tries = 0; state.done = false; state.hintShown = false;
     renderBar();
-    $("prompt").textContent = q.kind === "count" ? q.text : q.kind === "compare" ? q.text : "Solve it:";
-    $("question").textContent = q.kind === "count" || q.kind === "compare" ? "" : q.text;
-    $("question").classList.toggle("hidden", q.kind === "count" || q.kind === "compare");
+    $("prompt").innerHTML = q.prompt || "Solve it:";
+    $("question").textContent = q.big || "";
+    $("question").classList.toggle("hidden", !q.big);
     $("feedback").textContent = ""; $("feedback").className = "feedback";
     $("nextBtn").classList.add("hidden");
-    // Learn mode: hint button available. Quiz: none.
-    $("hintBtn").classList.toggle("hidden", state.mode !== "learn" || q.kind === "count");
+    $("hintBtn").classList.toggle("hidden", state.mode !== "learn");
     drawPics(false);
     drawAnswers();
   }
 
   function renderBar() {
     const bar = $("bar"); bar.innerHTML = "";
-    if (state.mode !== "quiz") { bar.classList.add("hidden"); return; }
-    bar.classList.remove("hidden");
+    bar.classList.toggle("hidden", state.mode !== "quiz");
+    if (state.mode !== "quiz") return;
     for (let k = 0; k < state.total; k++) {
       const d = document.createElement("div");
-      d.className = "dot" + (k < state.results.length ? (state.results[k].ok ? " ok" : " no") : k === state.i ? " now" : "");
+      d.className = "dot" + (k < state.results.length ? (state.results[k].ok ? " ok" : " no") : k === state.results.length ? " now" : "");
       bar.appendChild(d);
     }
   }
 
-  // ---------- pictures ----------
-  function objs(n, emoji, cls = "") {
-    let h = "";
-    for (let k = 0; k < n; k++) h += `<span class="obj ${cls}">${emoji}</span>`;
-    return h;
-  }
-
   function drawPics(explainMode) {
-    const q = state.q, p = $("pics");
-    const showPics = state.mode === "learn" || q.kind === "count";
-    p.innerHTML = "";
-    if (!showPics && q.kind !== "compare") return;
-    if (q.kind === "count") {
-      p.innerHTML = `<div class="group">${objs(q.n, q.obj, "pop")}</div>`;
-    } else if (q.kind === "add") {
-      p.innerHTML = `<div class="group">${objs(q.a, q.obj)}</div><span class="opsign">+</span><div class="group">${objs(q.b, q.obj)}</div>`;
-      if (explainMode) p.innerHTML += `<span class="opsign">=</span><div class="group">${objs(q.a + q.b, q.obj, "pop")}</div>`;
-    } else if (q.kind === "sub") {
-      // show all a, cross out b when explaining
-      let h = "";
-      for (let k = 0; k < q.a; k++) h += `<span class="obj ${explainMode && k >= q.a - q.b ? "gone pop" : ""}">${q.obj}</span>`;
-      p.innerHTML = `<div class="group">${h}</div>`;
-    } else if (q.kind === "twenty") {
-      if (!explainMode) {
-        p.innerHTML = `<div class="group">${objs(q.a, q.obj)}</div><span class="opsign">+</span><div class="group">${objs(q.b, q.obj)}</div>`;
-      } else {
-        // ten-frame: fill first ten, then the rest
-        const total = q.a + q.b, first = 10, second = total - 10;
-        const frame = (filled, startFromA) => {
-          let h = '<div class="tenframe">';
-          for (let k = 0; k < 10; k++) {
-            const idx = startFromA + k;
-            h += `<div>${k < filled ? (idx < q.a ? "🔵" : "🔴") : ""}</div>`;
-          }
-          return h + "</div>";
-        };
-        p.innerHTML = frame(first, 0) + frame(second, 10);
-      }
-    } else if (q.kind === "compare") {
-      // answers are the numbers themselves; show piles in learn mode
-      if (state.mode === "learn") {
-        p.innerHTML = `<div class="group">${objs(q.a, "🔵")}</div><div class="group">${objs(q.b, "🔴")}</div>`;
-      }
-    }
-  }
-
-  function explain(q) {
-    switch (q.kind) {
-      case "add": return `Count all of them together: ${q.a} and ${q.b} more makes ${q.answer}.`;
-      case "sub": return `Start with ${q.a}. Cross out ${q.b}. ${q.answer} are left.`;
-      case "twenty": {
-        const need = 10 - q.a, rest = q.b - need;
-        return `Make 10 first! ${q.a} + ${need} = 10. Then ${rest} more: 10 + ${rest} = ${q.answer}.`;
-      }
-      case "compare": return `The pile with more dots is the bigger number. ${Math.max(q.a, q.b)} is more than ${Math.min(q.a, q.b)}.`;
-      default: return `Touch each one as you count. There are ${q.answer}.`;
-    }
-  }
-
-  // ---------- answers ----------
-  function choices(q) {
-    if (q.kind === "compare") return [q.a, q.b];
-    const max = q.kind === "twenty" ? 20 : 10;
-    const set = new Set([q.answer]);
-    const near = [q.answer - 1, q.answer + 1, q.answer - 2, q.answer + 2].filter(n => n >= 0 && n <= max);
-    shuffle(near);
-    for (const n of near) { if (set.size >= 3) break; set.add(n); }
-    while (set.size < 3) set.add(rand(0, max));
-    return shuffle([...set]);
+    const q = state.q;
+    // Quiz mode hides helper pictures unless the picture IS the question (coins, clock, blocks).
+    const html = (state.mode === "learn" || q.alwaysPics || explainMode) ? q.pics(explainMode) : "";
+    $("pics").innerHTML = html;
+    if (explainMode) $("pics").querySelectorAll(".blocks, .dots, .row").forEach(e => e.classList.add("pop"));
   }
 
   function drawAnswers() {
     const box = $("answers"); box.innerHTML = "";
-    const opts = choices(state.q);
-    box.classList.toggle("two", opts.length === 2);
-    for (const n of opts) {
+    box.classList.toggle("two", state.q.choices.length === 2);
+    for (const c of state.q.choices) {
       const b = document.createElement("button");
-      b.textContent = n;
-      b.onclick = () => answer(n, b);
+      b.textContent = c;
+      b.onclick = () => answer(c, b);
       box.appendChild(b);
     }
   }
 
-  function answer(n, btn) {
+  function answer(c, btn) {
     if (state.done) return;
-    const q = state.q, ok = n === q.answer, fb = $("feedback");
+    const q = state.q, ok = c === q.answer, fb = $("feedback");
     state.tries++;
     if (ok) {
       btn.classList.add("right");
       state.done = true;
       fb.className = "feedback good";
       const msg = pick(PRAISE);
-      fb.textContent = `${msg} ${q.kind === "count" || q.kind === "compare" ? "" : q.text.replace("?", q.answer)}`;
+      fb.textContent = msg + (state.mode === "learn" && state.tries > 1 ? " " + q.explain : "");
       speak(msg);
-      if (state.mode === "learn" && q.kind !== "count") drawPics(true);
       finishQuestion(state.tries === 1);
     } else if (state.mode === "learn") {
       btn.classList.add("wrong"); btn.disabled = true;
       fb.className = "feedback bad";
       fb.textContent = pick(TRY);
       speak(fb.textContent);
-      if (state.tries >= 2 && !state.hintShown && q.kind !== "count") $("hintBtn").click();
+      if (state.tries >= 2 && !state.hintShown) showHow();
     } else {
-      // quiz: one try, then show the right answer
       btn.classList.add("wrong");
-      [...$("answers").children].forEach(b => { if (+b.textContent === q.answer) b.classList.add("right"); });
+      [...$("answers").children].forEach(b => { if (b.textContent === q.answer) b.classList.add("right"); });
       state.done = true;
       fb.className = "feedback bad";
-      fb.textContent = `The answer is ${q.answer}. ${explain(q)}`;
-      finishQuestion(false, n);
+      fb.textContent = `The answer is ${q.answer}. ${q.explain}`;
+      finishQuestion(false);
     }
   }
 
-  function finishQuestion(ok, given) {
-    state.results.push({ ok, text: state.q.kind === "compare" ? `${state.q.text} ${state.q.a} or ${state.q.b}` : state.q.kind === "count" ? `Count the ${state.q.obj}` : state.q.text, answer: state.q.answer, given });
+  function finishQuestion(ok) {
+    state.results.push({ ok, review: state.q.review });
     renderBar();
     $("hintBtn").classList.add("hidden");
     $("nextBtn").classList.remove("hidden");
@@ -442,24 +602,20 @@
   }
 
   function next() {
-    state.i++;
     if (state.mode === "quiz" && state.results.length >= state.total) return results();
     newQuestion();
   }
 
-  // ---------- results ----------
   function results() {
-    const score = state.results.filter(r => r.ok).length;
-    const stars = starsFor(score);
-    const best = store.get();
-    const isBest = best[state.topic] == null || score > best[state.topic];
+    const score = state.results.filter(r => r.ok).length, stars = starsFor(score);
+    const best = store.get(), isBest = best[state.topic] == null || score > best[state.topic];
     if (isBest) { best[state.topic] = score; store.set(best); }
     $("resTitle").textContent = score >= 9 ? "Amazing!" : score >= 7 ? "Great work!" : score >= 4 ? "Good try!" : "Keep practicing!";
     $("resStars").textContent = "⭐".repeat(stars) + "☆".repeat(3 - stars);
     $("resScore").textContent = `You got ${score} out of 10.` + (isBest && score > 0 ? " New best! 🏆" : "");
     const missed = state.results.filter(r => !r.ok);
     $("resReview").innerHTML = missed.length
-      ? `<p class="muted">Let's look at these again:</p><ul class="review">${missed.map(r => `<li>${r.text.replace(" = ?", "")} → <b>${r.answer}</b></li>`).join("")}</ul>`
+      ? `<p class="muted">Let's look at these again:</p><ul class="review">${missed.map(r => `<li>${r.review}</li>`).join("")}</ul>`
       : "";
     show("results");
     if (stars >= 2) confetti();
