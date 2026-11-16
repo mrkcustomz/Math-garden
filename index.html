@@ -97,6 +97,9 @@
   .row { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; max-width: 300px; padding: 8px; border: 3px dashed var(--line); border-radius: 14px; font-size: 26px; }
   .row .x { opacity: .3; text-decoration: line-through; }
 
+  .arr { display: grid; gap: 4px; padding: 8px; border: 3px dashed var(--line); border-radius: 14px; font-size: 26px; line-height: 1; }
+  .arr span { width: 30px; text-align: center; }
+  .plate { display: flex; flex-wrap: wrap; gap: 2px; justify-content: center; align-content: center; width: 86px; min-height: 86px; padding: 8px; border-radius: 50%; border: 3px solid var(--line); background: var(--bg); font-size: 20px; }
   /* coins */
   .coin { display: inline-grid; place-items: center; border-radius: 50%; font-weight: bold; font-size: 14px; color: #222; border: 3px solid; box-shadow: inset 0 0 0 3px rgba(255,255,255,.4); }
   .coin.q { width: 64px; height: 64px; background: #d9dde3; border-color: #8a929c; font-size: 16px; }
@@ -135,6 +138,9 @@
     .modes { grid-template-columns: 1fr; }
     .clock { width: 170px; height: 170px; }
     .answers { gap: 8px; }
+    .arr { font-size: 20px; padding: 6px; gap: 2px; }
+    .arr span { width: 22px; }
+    .plate { width: 72px; min-height: 72px; font-size: 17px; }
   }
 </style>
 </head>
@@ -341,6 +347,32 @@
           pics: () => "", review: `${seq.join(", ")}` };
       }
     },
+    mult: {
+      name: "Times ×", sub: "Bonus: equal groups (3rd grade)", color: "#7b3fbf",
+      make() {
+        const a = rand(2, 5), b = Math.random() < .15 ? 10 : rand(1, 5), ans = a * b, obj = pick(["🍪", "⭐", "🍎", "🌸", "🐞"]);
+        const adds = Array(a).fill(b).join(" + ");
+        return { prompt: `${a} groups of ${b}`, big: `${a} × ${b} = ?`, say: `What is ${a} times ${b}? That means ${a} groups of ${b}.`,
+          answer: String(ans), choices: numChoices(ans, [a + b, ans + b, ans - b], 0, 100),
+          explain: `${a} × ${b} means ${a} rows of ${b}. Add them up: ${adds} = ${ans}.`,
+          pics: () => `<div class="arr" style="grid-template-columns: repeat(${b}, auto)">${`<span>${obj}</span>`.repeat(a * b)}</div>`,
+          review: `${a} × ${b} = ${ans}  (${adds})` };
+      }
+    },
+    div: {
+      name: "Sharing ÷", sub: "Bonus: share equally (3rd grade)", color: "#a23b72",
+      make() {
+        const a = rand(2, 5), b = rand(1, 5), total = a * b, obj = pick(["🍪", "🍓", "🍬", "🧁"]);
+        return { prompt: `Share ${total} ${obj} equally onto ${a} plates. How many on each plate?`, big: `${total} ÷ ${a} = ?`,
+          say: `What is ${total} divided by ${a}? Share ${total} treats equally onto ${a} plates. How many on each plate?`,
+          answer: String(b), choices: numChoices(b, [total - a, b + 1, a !== b ? a : b + 2], 0, 30),
+          explain: `Put one on each plate, then go around again until they're all gone. Each plate gets ${b}. Check: ${a} × ${b} = ${total}.`,
+          pics: ex => ex
+            ? Array.from({ length: a }, () => `<div class="plate">${obj.repeat(b)}</div>`).join("")
+            : `<div class="row">${obj.repeat(total)}</div>` + Array.from({ length: a }, () => `<div class="plate"></div>`).join(""),
+          review: `${total} ÷ ${a} = ${b}  (because ${a} × ${b} = ${total})` };
+      }
+    },
     compare: {
       name: "Bigger or Smaller", sub: "Compare numbers up to 1000", color: "#c28a00",
       make() {
@@ -453,7 +485,7 @@
     try {
       if (!("speechSynthesis" in window)) return;
       speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text.replace(/−/g, " minus ").replace(/¢/g, " cents"));
+      const u = new SpeechSynthesisUtterance(text.replace(/−/g, " minus ").replace(/×/g, " times ").replace(/÷/g, " divided by ").replace(/¢/g, " cents"));
       u.rate = 0.9; u.pitch = 1.1;
       speechSynthesis.speak(u);
     } catch {}
